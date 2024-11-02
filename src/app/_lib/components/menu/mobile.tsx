@@ -11,7 +11,11 @@ export default function MobileMenu({ data }: MenuProps) {
     const pathname = usePathname()
 
     return (
-        <div className="fixed z-10 lg:hidden  bottom-[0px] left-0 w-full py-3 bg-white shadow-2xl grid grid-cols-[1fr,1fr,1fr] gap-3 rounded-t-xl">
+        <div className="fixed z-10 lg:hidden  bottom-[0px] left-0 w-full py-3 bg-white shadow-2xl grid grid-cols-[1fr,1fr,1fr] gap-3 rounded-t-xl"
+            style={{
+                paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 12px)'
+            }}
+        >
             {data.map(item => {
                 const isActive = pathname.includes(item.path)
                 return (
