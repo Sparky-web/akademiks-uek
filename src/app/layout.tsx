@@ -36,7 +36,7 @@ export default async function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" data-meta-dynamic="true"></meta>
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#fafafa" />
 
       </head>
       <body className="bg-background text-foreground">
@@ -59,7 +59,23 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
   } else {
     document.body.classList.remove('dark');
   }
-});`
+});
+
+function updateThemeColor() {
+  const themeColorMetaTag = document.querySelector('#theme-color');
+  const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  // Устанавливаем цвет на основе текущей темы
+  themeColorMetaTag.setAttribute('content', isDarkMode ? '#121212' : '#ffffff');
+}
+
+// Инициализация и обновление при смене темы
+updateThemeColor();
+
+// Отслеживание изменений системной темы
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeColor);
+
+`
         }}>
         </script>
       </body>
