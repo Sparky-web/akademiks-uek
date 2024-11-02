@@ -11,10 +11,9 @@ import { Suspense } from "react"
 export default async function LkLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerAuthSession()
 
-
     if (session?.user?.groupId) {
         void api.schedule.get.prefetch({ groupId: session.user?.groupId, weekStart: DateTime.now().startOf('week').toJSDate() })
-    }  else if(session?.user?.teacherId) {
+    } else if (session?.user?.teacherId) {
         void api.schedule.get.prefetch({ teacherId: session.user?.teacherId, weekStart: DateTime.now().startOf('week').toJSDate() })
     }
 
@@ -25,9 +24,9 @@ export default async function LkLayout({ children }: { children: React.ReactNode
             <SetUserProvider userData={user}>
                 <Menu />
                 {/* <Suspense fallback="loading..."> */}
-                    <div className="lg:h-full lg:overflow-y-auto lg:py-8 lg:px-10 lg:relative">
-                        {children}
-                    </div>
+                <div className="lg:h-full lg:overflow-y-auto lg:py-8 lg:px-10 lg:relative">
+                    {children}
+                </div>
                 {/* </Suspense> */}
             </SetUserProvider>
         </div>

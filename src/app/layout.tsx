@@ -31,6 +31,11 @@ export default async function RootLayout({
   return (
     <html lang="ru" className={`${montserrat.className}`}>
       <head>
+        <title>
+          Академикс — расписание УРТК
+        </title>
+        <meta name="description" content="Платформа Свердловской области для просмотра расписания СПО. Расписания уральского радиотехнического колледжа им. А.С. Попова." />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="theme-color" content="#000000" />

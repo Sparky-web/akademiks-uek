@@ -19,7 +19,7 @@ export default function SetUserProvider({ children, userData }: { children: Reac
     return (
         <>
             {/* {!user && <LoaderFullscreen  />} */}
-            {children}
+            {(!userData || (userData && user)) && children}
         </>
     )
 }

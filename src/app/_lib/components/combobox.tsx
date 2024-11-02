@@ -64,7 +64,7 @@ export function Combobox({data, value, onChange}: ComboboxProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between text-base"
+          className="w-full justify-between text-base h-12"
           ref={ref}
         >
           {value
