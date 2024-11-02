@@ -13,7 +13,7 @@ export default function MobileMenu({ data }: MenuProps) {
     return (
         <div className="fixed z-10 lg:hidden  bottom-[0px] left-0 w-full py-3 bg-white shadow-2xl grid grid-cols-[1fr,1fr,1fr] gap-3 rounded-t-xl"
             style={{
-                paddingBottom: 'calc(env(safe-area-inset-bottom, 8px) + 4px)'
+                paddingBottom: 'calc(env(safe-area-inset-bottom) + 12px)'
             }}
         >
             {data.map(item => {
