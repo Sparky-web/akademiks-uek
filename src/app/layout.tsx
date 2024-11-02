@@ -27,9 +27,14 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 
   // await api.schedule.generate({groupId: 'is-313'})
-  
+
   return (
     <html lang="ru" className={`${montserrat.className}`}>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+        <meta name="theme-color" content="#000000" />
+      </head>
       <body>
         <TRPCReactProvider>
           <ReduxProvider>
