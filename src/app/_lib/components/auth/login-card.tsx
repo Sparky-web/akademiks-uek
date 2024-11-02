@@ -9,13 +9,20 @@ import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import Link from "next/link"
 import { useState } from "react"
-import { signIn } from "next-auth/react"
+import { getSession, signIn } from "next-auth/react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { useAppDispatch } from "../../client-store"
+import { api } from "~/trpc/react"
+import { setUser } from "../../client-store/_lib/slices/user"
 
 export default function LoginCard() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const utils = api.useUtils()
+
+    const dispatch = useAppDispatch()
 
     const navigation = useRouter()
 
@@ -35,8 +42,13 @@ export default function LoginCard() {
                 throw new Error(res.error)
             }
 
-            navigation.push('/lk/my-schedule')
+            const session = await getSession()
 
+            if(session?.user) {
+                dispatch(setUser(session.user))
+            }
+
+            navigation.push('/lk/my-schedule')
         } catch (e) {
             toast.error('Неверный email или пароль')
         }

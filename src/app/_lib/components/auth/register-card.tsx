@@ -9,10 +9,10 @@ import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import Link from "next/link"
 import { useState } from "react"
-import { signIn } from "next-auth/react"
+import { getSession, signIn } from "next-auth/react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-import { useAppSelector } from "../../client-store"
+import { useAppDispatch, useAppSelector } from "../../client-store"
 import { useForm } from "@tanstack/react-form"
 import { zodValidator } from "@tanstack/zod-form-adapter"
 import TextFormField from "../text-form-field"
@@ -20,6 +20,7 @@ import { z } from "~/lib/utils/zod-russian"
 import { Combobox } from "../combobox"
 import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"
+import { setUser } from "../../client-store/_lib/slices/user"
 
 export default function LoginCard() {
     const groups = useAppSelector(e => e.schedule.groups)
@@ -27,6 +28,8 @@ export default function LoginCard() {
 
     const { mutateAsync: register } = api.auth.register.useMutation();
     const { mutateAsync: update } = api.user.update.useMutation()
+
+    const dispatch = useAppDispatch()
 
     const form = useForm({
         defaultValues: {
@@ -64,6 +67,12 @@ export default function LoginCard() {
                     email,
                     name,
                 })
+
+                const session = await getSession()
+
+                if (session?.user) {
+                    dispatch(setUser(session.user))
+                }
 
                 toast.success('Регистрация прошла успешно')
                 form.reset()
