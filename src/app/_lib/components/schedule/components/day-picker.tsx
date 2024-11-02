@@ -34,7 +34,7 @@ export default function DayPicker(props: DayPickerProps) {
           return (
             <button
               key={day}
-              className={`w-full flex flex-col items-center p-1 rounded-lg transition-colors ${isSelected ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100'}`}
+              className={`w-full flex flex-col items-center p-1 rounded-lg transition-colors ${isSelected ? 'bg-primary text-white' : 'text-muted-foreground hover:bg-gray-100 dark:hover:bg-accent/50 '}`} 
               onClick={() => onSelectDay(date)}
             >
               <span className="text-xs">{day}</span>

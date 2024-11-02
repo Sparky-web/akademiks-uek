@@ -16,7 +16,7 @@ interface LessonProps {
 export default function Lesson({ lesson, isActive, type }: LessonProps) {
     return (
         <div className={
-            cn("bg-white rounded-xl px-5 pt-4 shadow-sm grid gap-3",
+            cn("bg-card rounded-xl px-5 pt-4 shadow-sm grid gap-3",
                 !isActive && 'pb-4'
             )}>
             <div className="grid gap-1 font-medium ">
@@ -34,7 +34,7 @@ export default function Lesson({ lesson, isActive, type }: LessonProps) {
                 <div className="text-sm text-muted-foreground">
                     Аудитория:
                 </div>
-                <Badge size={'sm'}>
+                <Badge size={'sm'} className="text-white">
                     {lesson.Classroom?.name}
                 </Badge>
 

@@ -27,7 +27,7 @@ export default async function RootLayout({
   // await api.schedule.generate({groupId: 'is-313'})
 
   return (
-    <html lang="ru" className={`${montserrat.className}`}>
+    <html lang="ru" className={`${montserrat.className} `}>
       <head>
         <title>
           Академикс — расписание УРТК
@@ -37,15 +37,33 @@ export default async function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="theme-color" content="#ffffff" />
+
       </head>
-      <body>
+      <body className="bg-background text-foreground">
         <TRPCReactProvider>
           <ReduxProvider>
             {children}
           </ReduxProvider>
         </TRPCReactProvider>
         <Toaster />
+
+        <script dangerouslySetInnerHTML={{
+          __html: `if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.body.classList.add('dark');
+}
+
+// Подписка на изменения темы в системе:
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  if (e.matches) {
+    document.body.classList.add('dark');
+  } else {
+    document.body.classList.remove('dark');
+  }
+});`
+        }}>
+        </script>
       </body>
+
     </html>
   );
 }

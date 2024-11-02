@@ -25,7 +25,7 @@ export default function DayLoadProgress({ day }: DayLoadProgressProps) {
     const width = (endLessonIndex - 1) / MAX_LESSONS * 100 - startPercent
 
     return (
-        <div className="w-full h-2.5 bg-gray-200 rounded-lg relative overflow-hidden">
+        <div className="w-full h-2.5 bg-gray-200 rounded-lg relative overflow-hidden dark:bg-muted">
             <div
                 style={{ width: `calc(${width}% + 8px`, left: `${startPercent - 1}%`, top: 0 }}
                 className={cn("h-full rounded-lg absolute", getColor(width))}

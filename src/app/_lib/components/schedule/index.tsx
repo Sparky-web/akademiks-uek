@@ -70,7 +70,7 @@ function Schedule(props: ScheduleProps) {
                     <Day day={foundDay} type={props.type} />
                 }
 
-                {!isEmpty && <P className="font-medium text-sm w-fit py-1 px-3 rounded-xl bg-gray-100 mx-auto mt-3">
+                {!isEmpty && <P className="font-medium text-sm w-fit py-1 px-3 rounded-xl bg-muted mx-auto mt-3">
                     {DateTime.fromJSDate(selectedDayStart).toLocaleString(DateTime.DATE_HUGE)}
                 </P>}
             </div>

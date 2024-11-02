@@ -1,11 +1,12 @@
 'use client'
-import { CalendarDays, Home, User } from "lucide-react";
+import { CalendarDays, Home, User, Upload } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, ReactElement, ReactNode } from "react";
 import { cn } from "~/lib/utils";
 import MobileMenu from "./mobile";
 import DesktopMenu from "./desktop";
+
 
 const menu: MenuItem[] = [
     {
@@ -23,6 +24,11 @@ const menu: MenuItem[] = [
         path: '/lk/profile',
         icon: User
     },
+    // {
+    //     title: 'Загрузить расписание',
+    //     path: '/lk/add-schedule',
+    //     icon: Upload
+    // }
 ]
 
 export interface MenuItem {

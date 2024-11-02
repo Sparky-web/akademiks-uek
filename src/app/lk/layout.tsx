@@ -5,8 +5,6 @@ import SetUserProvider from "./_lib/providers/set-user"
 import { api } from "~/trpc/server"
 import DateTime from "~/lib/utils/datetime"
 import Menu from "../_lib/components/menu"
-import { Suspense } from "react"
-
 
 export default async function LkLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerAuthSession()
