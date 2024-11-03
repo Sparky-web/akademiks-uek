@@ -260,5 +260,5 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
         }
     }
 
-    await pMap(schedule, _updateSchedule, { concurrency: 5 })
+    await pMap(schedule, _updateSchedule, { concurrency: 1 })
 }
