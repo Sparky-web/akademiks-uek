@@ -6,6 +6,7 @@ import DateTime from "~/lib/utils/datetime"
 import { TRPCClientError } from "@trpc/client";
 import getStudentSchedule from "./_lib/utils/get-student-schedule";
 import getTeacherSchedule from "./_lib/utils/get-teacher-schedule";
+import updateSchedule from "./_lib/utils/update-schedule";
 
 
 export default createTRPCRouter({
@@ -44,5 +45,10 @@ export default createTRPCRouter({
         else {
             throw new TRPCClientError('Не указан ни groupId, ни teacherId')
         }
+    }),
+
+    update: protectedProcedure.input(z.any()).mutation(async ({ ctx, input }) => {
+        await updateSchedule(input)
+        return true
     }),
 })

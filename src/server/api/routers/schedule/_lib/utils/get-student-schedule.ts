@@ -23,6 +23,9 @@ const getStudentSchedule = async (groupId: string, weekStart: Date) => {
         },
         include: {
             lessons: {
+                orderBy: {
+                    index: 'asc'
+                },
                 include: {
                     Teacher: {
                         select: {

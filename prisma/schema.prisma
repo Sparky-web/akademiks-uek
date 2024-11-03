@@ -32,6 +32,7 @@ model Lesson {
   start DateTime
   end   DateTime
   index Int
+  subgroup Int?
 
   teacherId String?
   Teacher   Teacher? @relation(fields: [teacherId], references: [id])

@@ -10,7 +10,6 @@ import Link from "next/link";
 
 export default function Favourites() {
     const user = useAppSelector(e => e.user?.user)
-    // const user = null
 
     return (
         <Card>

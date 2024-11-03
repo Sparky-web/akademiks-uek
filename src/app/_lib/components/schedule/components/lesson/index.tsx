@@ -37,8 +37,8 @@ export default function Lesson({ lesson, isActive, type }: LessonProps) {
                 <Badge size={'sm'} className="text-white">
                     {lesson.Classroom?.name}
                 </Badge>
-
             </div>
+            {lesson.subgroup && <span className="text-sm font-medium">Подгруппа: {lesson.subgroup}</span>}
             {/* {lesson} */}
 
             <div className="flex gap-2">
