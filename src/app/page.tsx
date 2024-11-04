@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { LatestPost } from "~/app/_lib/components/post";
 import { getServerAuthSession } from "~/server/auth";
@@ -8,11 +9,13 @@ export const dynamic = "force-static";
 // export const revalidate = 300;
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
+  // const hello = await api.post.hello({ text: "from tRPC" });
 
-  const session = await getServerAuthSession();
+  // const session = await getServerAuthSession();
 
-  void api.post.getLatest.prefetch();
+  return redirect('/lk')
+
+  // void api.post.getLatest.prefetch();
 
   return (
     <HydrateClient>

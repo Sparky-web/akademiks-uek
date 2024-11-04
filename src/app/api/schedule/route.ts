@@ -1,5 +1,7 @@
 import parseBackground from "~/lib/utils/parse-background";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
     try {
         await parseBackground()

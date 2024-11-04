@@ -80,8 +80,14 @@ export default async function parseBackground() {
     let links = await fetchPageLinks(config.parseSpreadsheetPageUrl);
 
     for (const link of links) {
+        const sheetId = link.match(/[-\w]{25,}/)[0];
+
+        if (!sheetId) {
+            console.error(`Ошибка при обновлении расписания: ${link}`)
+            continue
+        }
+        
         try {
-            const sheetId = link.match(/[-\w]{25,}/)[0];
             const buffer = await downloadSpreadsheetAsXLSX(sheetId);
             const workbook = XLSX.read(buffer, { type: 'array' });
             const data = parseScheduleFromWorkbook(workbook)
