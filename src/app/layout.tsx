@@ -10,6 +10,9 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { getServerAuthSession } from "~/server/auth";
 import { ReduxProvider } from "./_lib/context/redux";
 
+// import parseBackground from "~/lib/utils/parse-background";
+// parseBackground()
+
 import { api } from "~/trpc/server";
 // import { Provider } from "react-redux";
 // import store from "~/client-store";

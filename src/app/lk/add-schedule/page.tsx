@@ -36,7 +36,6 @@ export default function Page() {
         parse()
     }, [files])
 
-
     return (
         <div className="grid gap-6 ">
             <PageTitle>
