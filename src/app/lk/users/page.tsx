@@ -11,15 +11,11 @@ export default function Page() {
 
     if(!user || !user.isAdmin) return <InitializationErrorCard message={"Вы не администратор, доступ запрещен"} />
 
-    const [_, {data}] = api.users.get.useSuspenseQuery()
-
     return (
         <div className="grid gap-6">
             <PageTitle>Пользователи</PageTitle>
-            <div className="text-muted-foreground text-sm">
-                Всего пользователей: {data?.length}
-            </div>
-            {data && <UserTable users={data} />}
+
+            <UserTable  />
         </div>
     )
 }
