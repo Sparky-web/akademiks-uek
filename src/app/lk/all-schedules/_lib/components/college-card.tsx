@@ -8,7 +8,7 @@ export default function CollegeCard() {
         <div className="grid gap-3">
 
             <div className="flex gap-2 content-center">
-                <Landmark className="h-5 w-5" />
+                <Landmark className="min-h-5 min-w-5" />
                 <H3>Уральский радиотехнический колледж им. А.С. Попова</H3>
             </div>
             <div className="text-muted-foreground">

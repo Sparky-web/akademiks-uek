@@ -78,12 +78,12 @@ function InstallInstructions() {
         </ol>
       </div>
 
-      <div className="flex items-center justify-center p-4 bg-muted rounded-lg cursor-pointer" onClick={handleInstallClick}>
+      {showInstallPrompt && <div className="flex items-center justify-center p-4 bg-muted rounded-lg cursor-pointer" onClick={handleInstallClick}>
         <ArrowDownToLine className="h-12 w-12 text-primary" />
         <span className="ml-2 text-sm font-medium">Нажмите здесь, чтобы установить</span>
-      </div>
+      </div>}
 
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground mb-2">
         После установки вы сможете открывать "Академикс" одним касанием, прямо с главного экрана вашего устройства!
       </p>
     </div>
