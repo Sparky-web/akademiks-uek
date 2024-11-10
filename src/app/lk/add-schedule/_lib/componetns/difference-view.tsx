@@ -53,7 +53,7 @@ export default function DifferenceView(props: DifferenceViewProps) {
                                             <div className="text-xs text-muted-foreground">{item.from.Classroom?.name}, {item.from?.Teacher?.name}</div>
                                             <div className="flex items-center gap-2 mt-1">
                                                 <Users className="w-3 h-3" />
-                                                {item.from.Groups?.map(e => e.title).join(', ')} {item.from.subgroup &&
+                                                {item.from.Group?.title} {item.from.subgroup &&
                                                     <span> - подгруппа {item.from.subgroup}</span>}
                                             </div>
                                         </TableCell>}

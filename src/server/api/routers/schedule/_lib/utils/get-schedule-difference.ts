@@ -12,13 +12,11 @@ export default async function getScheduleDifference(schedule: LessonParsed[]) {
         where: {
             start: {
                 gte: minDate,
-                lt: maxDate
+                lte: maxDate
             },
-            Groups: {
-                some: {
-                    title: {
-                        in: groups
-                    }
+            Group: {
+                title: {
+                    in: groups
                 }
             },
         },
@@ -26,7 +24,7 @@ export default async function getScheduleDifference(schedule: LessonParsed[]) {
             start: 'asc',
         },
         include: {
-            Groups: true,
+            Group: true,
             Teacher: true,
             Classroom: true
         }
@@ -51,7 +49,7 @@ export default async function getScheduleDifference(schedule: LessonParsed[]) {
         const foundExact = fetched.find(l => {
             return l.start.toString() === lesson.start.toString() && l.end.toString() === lesson.end.toString() &&
                 l.title === lesson.title &&
-                l.Groups.some(g => g.title === lesson.group) &&
+                l.Group?.title === lesson.group &&
                 l.Teacher?.name === lesson.teacher &&
                 l?.Classroom?.name === lesson.classroom &&
                 l.subgroup === lesson.subgroup

@@ -70,7 +70,7 @@ export default function DesktopSchedule(props: ScheduleProps) {
                                                         {formatTime(lessons[0].start)} - {formatTime(lessons[0].end)}
                                                     </div>
                                                     <div className="text-xs text-muted-foreground">
-                                                        {lessons[0].Classroom.name}, {props.schedule.type ==='student' ? lessons[0].Teacher.name : lessons[0].Groups[0]?.title}
+                                                        {lessons[0].Classroom.name}, {props.schedule.type ==='student' ? lessons[0].Teacher.name : lessons[0].Group?.title}
                                                     </div>
                                                     {lessons[0].subgroup && <div className="text-xs font-medium">Подгруппа {lessons[0].subgroup}</div>}
                                                 </div> : lessons.map((lesson, index) => (
@@ -89,7 +89,7 @@ export default function DesktopSchedule(props: ScheduleProps) {
                                                             {formatTime(lesson.start)} - {formatTime(lesson.end)}
                                                         </div>
                                                         <div className="text-xs text-muted-foreground">
-                                                            {lesson.Classroom.name}, {props.schedule.type ==='student' ? lesson.Teacher.name : lesson.Groups[0]?.title}
+                                                            {lesson.Classroom.name}, {props.schedule.type ==='student' ? lesson.Teacher.name : lesson.Group?.title}
                                                         </div>
                                                         {lesson.subgroup && <div className="text-xs font-medium">Подгруппа {lesson.subgroup}</div>}
                                                     </div>

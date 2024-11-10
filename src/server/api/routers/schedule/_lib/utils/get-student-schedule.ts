@@ -16,10 +16,8 @@ const getStudentSchedule = async (groupId: string, weekStart: Date) => {
             start: 'asc'
         },
         where: {
-            Groups: {
-                some: {
-                    id: groupId
-                }
+            Group: {
+                id: groupId
             },
             start: {
                 gte: weekStart,
@@ -33,7 +31,7 @@ const getStudentSchedule = async (groupId: string, weekStart: Date) => {
                     name: true
                 }
             },
-            Groups: {
+            Group: {
                 select: {
                     id: true,
                     title: true

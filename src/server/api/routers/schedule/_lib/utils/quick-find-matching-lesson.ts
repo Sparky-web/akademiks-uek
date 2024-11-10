@@ -23,7 +23,7 @@ export function findMatchingLessons(lessons: Lesson[], lesson: LessonParsed): Le
     if (startIndex !== -1) {
         for (let i = startIndex; i < lessons.length && lessons[i].start.toString() === lesson.start.toString(); i++) {
             if (lessons[i].end.toString() === lesson.end.toString() &&
-                lessons[i]?.Groups.some(g => g.title === lesson.group)) {
+                lessons[i]?.Group?.title === lesson.group) {
                 foundBase.push(lessons[i]);
             }
         }

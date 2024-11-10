@@ -36,8 +36,10 @@ model Lesson {
 
   teacherId String?
   Teacher   Teacher? @relation(fields: [teacherId], references: [id])
+  
+  groupId String?
+  Group   Group? @relation(fields: [groupId], references: [id])
 
-  Groups   Group[]
   // Days   Day[]
   startDay DateTime @default(now())
 

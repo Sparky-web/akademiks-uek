@@ -53,7 +53,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                         index: lesson.to.index,
                         startDay: DateTime.fromJSDate(lesson.to.start).startOf('day').toJSDate(),
                         subgroup: lesson.to.subgroup,
-                        Groups: {
+                        Group: {
                             connectOrCreate: {
                                 where: {
                                     id: translit(lesson.to.group),
@@ -89,7 +89,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                         },
                     },
                     include: {
-                        Groups: true,
+                        Group: true,
                         Teacher: true,
                         Classroom: true
                     }
@@ -113,10 +113,8 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                     where: {
                         start: lesson.from.start,
                         end: lesson.from.end,
-                        Groups: {
-                            some: {
-                                id: lesson.from.group
-                            }
+                        Group: {
+                            id: lesson.from.group
                         },
                         subgroup: lesson.from.subgroup || null
                     },
@@ -137,7 +135,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                         index: lesson.to.index,
                         subgroup: lesson.to.subgroup,
                         startDay: DateTime.fromJSDate(lesson.to.start).startOf('day').toJSDate(),
-                        Groups: {
+                        Group: {
                             connectOrCreate: {
                                 where: {
                                     id: translit(lesson.to.group),
@@ -173,7 +171,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                         },
                     },
                     include: {
-                        Groups: true,
+                        Group: true,
                         Teacher: true,
                         Classroom: true
                     }
@@ -213,7 +211,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                 })
             }
         }
-        
+
         // async function _updateSchedule(lesson: LessonParsed) {
         //     let foundGroup = groups.find(group => group.title === lesson.group)
         //     if (!foundGroup) {

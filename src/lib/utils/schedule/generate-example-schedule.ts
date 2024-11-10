@@ -152,7 +152,7 @@ async function createScheduleForGroup() {
           start: start.toJSDate(),
           end: end.toJSDate(),
           index: i + 1,
-          Groups: { connect: { id: groupId } },
+          Group: { connect: { id: groupId } },
           Teacher: { connect: { id: teacher.id } },
           Classroom: { connect: { id: classroom.id } },
           Days: { connect: { id: day.id } }

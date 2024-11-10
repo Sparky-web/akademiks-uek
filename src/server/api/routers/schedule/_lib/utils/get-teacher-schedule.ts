@@ -59,7 +59,7 @@ const getTeacherSchedule = async (teacherId: string, weekStart: Date) => {
             }
         },
         include: {
-            Groups: {
+            Group: {
                 select: {
                     id: true,
                     title: true

@@ -47,10 +47,10 @@ export default function Lesson({ lesson, isActive, type }: LessonProps) {
                     {lesson.Teacher?.name}
                 </div>}
                 {type === 'teacher' &&
-                    lesson.Groups?.map(group => <div className="flex gap-2 content-center items-center text-muted-foreground text-sm">
+                    lesson.Group && <div className="flex gap-2 content-center items-center text-muted-foreground text-sm">
                         <Users className="w-4 h-4" />
-                        {group.title}
-                    </div>)
+                        {lesson.Group?.title}
+                    </div>
                 }
             </div>
             {isActive && <ActiveIndicatior start={lesson.start} end={lesson.end} />}
