@@ -20,9 +20,9 @@ export default function InstallProvider({ children }: { children: React.ReactNod
     }, [])
 
     return (
-        <div>
+        <>
             {children}
             <InstallDrawer />
-        </div>
+        </>
     )
 }
