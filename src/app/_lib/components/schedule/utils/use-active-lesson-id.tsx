@@ -1,7 +1,10 @@
 import DateTime from "~/lib/utils/datetime"
 import { Lesson } from "~/types/schedule"
+import useTickUpdate from "./use-tick"
 
 export default function useActiveLessonId(lessons: Lesson[]) {
+    useTickUpdate(10000)
+
     if (lessons.length === 0) return null
     const isToday = DateTime.fromJSDate(lessons[0].start).startOf('day').toJSDate().toISOString() === DateTime.now().startOf('day').toJSDate().toISOString()
 

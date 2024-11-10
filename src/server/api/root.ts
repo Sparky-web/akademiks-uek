@@ -5,6 +5,7 @@ import groupsRouter from "./routers/groups";
 import teachersRouter from "./routers/teachers";
 import schedule from "./routers/schedule";
 import { userRouter } from "./routers/lk/user";
+import users from "./routers/users";
 
 /**
  * This is the primary router for your server.
@@ -17,6 +18,7 @@ export const appRouter = createTRPCRouter({
   user: userRouter,
   groups: groupsRouter,
   teachers: teachersRouter,
+  users: users,
   schedule
 });
 

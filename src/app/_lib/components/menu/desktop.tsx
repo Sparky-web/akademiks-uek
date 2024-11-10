@@ -10,7 +10,6 @@ interface MenuProps {
     data: MenuItem[]
 }
 
-
 export default function DesktopMenu({ data }: MenuProps) {
     const pathname = usePathname()
 

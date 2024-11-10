@@ -1,11 +1,12 @@
 'use client'
-import { CalendarDays, Home, User, Upload } from "lucide-react";
+import { CalendarDays, Home, User, Upload, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, ReactElement, ReactNode } from "react";
 import { cn } from "~/lib/utils";
 import MobileMenu from "./mobile";
 import DesktopMenu from "./desktop";
+import { useAppSelector } from "../../client-store";
 
 
 const menu: MenuItem[] = [
@@ -40,10 +41,27 @@ export interface MenuItem {
 export default function Menu() {
     const pathname = usePathname()
 
+    const user = useAppSelector(e => e.user?.user)
+
+    const desktopMenu = [...menu]
+    if(user && user.isAdmin) { 
+        desktopMenu.push({
+            title: 'Управление расписанием',
+            path: '/lk/add-schedule',
+            icon: Upload
+        })
+
+        desktopMenu.push({
+            title: 'Пользователи',
+            path: '/lk/users',
+            icon: Users
+        })
+    }
+
     return (
         <>
             <MobileMenu data={menu} />
-            <DesktopMenu data={menu} />
+            <DesktopMenu data={desktopMenu} />
         </>
     )
 }

@@ -1,6 +1,6 @@
 import createScheduleForGroup from "~/lib/utils/schedule/generate-example-schedule";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../../trpc";
-import {z} from "~/lib/utils/zod-russian"
+import { z } from "~/lib/utils/zod-russian"
 
 import DateTime from "~/lib/utils/datetime"
 import { TRPCClientError } from "@trpc/client";
@@ -16,6 +16,8 @@ export default createTRPCRouter({
             groupId: z.string()
         })
     ).mutation(async ({ ctx, input }) => {
+        if (!ctx.session?.user?.isAdmin) throw new TRPCClientError('Доступ запрещен')
+
         const group = await ctx.db.group.findFirst({
             where: {
                 id: input.groupId
@@ -46,10 +48,12 @@ export default createTRPCRouter({
     }),
 
     update: protectedProcedure.input(z.any()).mutation(async ({ ctx, input }) => {
+        if (!ctx.session?.user?.isAdmin) throw new TRPCClientError('Доступ запрещен')
         return await updateSchedule(input)
     }),
 
     difference: publicProcedure.input(z.any()).mutation(async ({ ctx, input }) => {
+        if (!ctx.session?.user?.isAdmin) throw new TRPCClientError('Доступ запрещен')
         const difference = await getScheduleDifference(input)
         return difference
     })
