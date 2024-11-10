@@ -17,7 +17,7 @@ export function useInstall() {
       <Drawer open={isOpen} onOpenChange={setIsOpen}>
         <DrawerContent>
           <DrawerHeader className="text-left">
-            <DrawerTitle>Установите Академикс прямо сейчас!</DrawerTitle>
+            <DrawerTitle>Установите Академикс</DrawerTitle>
             <DrawerDescription>Получите быстрый доступ и дополнительные возможности</DrawerDescription>
           </DrawerHeader>
           <div className="p-4 pb-0">
@@ -78,13 +78,13 @@ function InstallInstructions() {
         </ol>
       </div>
 
-      {showInstallPrompt && <div className="flex items-center justify-center p-4 bg-muted rounded-lg cursor-pointer" onClick={handleInstallClick}>
+      <div className="flex items-center justify-center p-4 bg-muted rounded-lg cursor-pointer" onClick={handleInstallClick}>
         <ArrowDownToLine className="h-12 w-12 text-primary" />
         <span className="ml-2 text-sm font-medium">Нажмите здесь, чтобы установить</span>
-      </div>}
+      </div>
 
       <p className="text-sm text-muted-foreground">
-        После установки вы сможете открывать наше приложение одним касанием, прямо с главного экрана вашего устройства!
+        После установки вы сможете открывать "Академикс" одним касанием, прямо с главного экрана вашего устройства!
       </p>
     </div>
   )
