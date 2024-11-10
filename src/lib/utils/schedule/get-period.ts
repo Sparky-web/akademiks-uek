@@ -1,4 +1,4 @@
-import DateTime from "../datetime";
+import DateTime from "~/lib/utils/datetime"
 import { LessonParsed } from "./flatten-schedule";
 
 export default function getPeriod(lessons: LessonParsed[]) {

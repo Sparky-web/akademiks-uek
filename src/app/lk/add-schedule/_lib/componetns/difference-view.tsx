@@ -1,6 +1,6 @@
 "use client"
 import { Users } from "lucide-react";
-import { DateTime } from "luxon";
+import DateTime from "~/lib/utils/datetime"
 import React from "react";
 import Card, { CardTitle } from "~/app/_lib/components/card";
 import { ScrollArea } from "~/components/ui/scroll-area";

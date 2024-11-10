@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Loader2 } from "lucide-react"
-import { DateTime } from 'luxon'
+import DateTime from "~/lib/utils/datetime"
 import { Button } from '~/components/ui/button'
 import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area'
 
@@ -25,13 +25,13 @@ interface ScheduleItem {
 
 const weekDays = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
 
-function formatDate(dateString: string): string {
+export function formatDate(dateString: string): string {
     const date = DateTime.fromFormat(dateString, 'dd.MM.yyyy').toJSDate()
     const day = weekDays[date.getDay()]
     return `${day}, ${dateString}`
 }
 
-function formatTime(dateString: string): string {
+export function formatTime(dateString: string): string {
     return new Date(dateString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 

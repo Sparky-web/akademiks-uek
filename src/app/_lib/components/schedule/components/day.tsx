@@ -3,6 +3,7 @@ import Lesson from "./lesson";
 import DateTime from "~/lib/utils/datetime"
 import EmptyDay from "./empty-day";
 import { P } from "~/components/ui/typography";
+import useActiveLessonId from "../utils/use-active-lesson-id";
 
 interface DayProps {
     day: Day,
@@ -10,34 +11,14 @@ interface DayProps {
 }
 
 export default function Day(props: DayProps) {
-    const lessons = props.day.lessons
-    const isToday = props.day.start.toISOString() === DateTime.now().startOf('day').toJSDate().toISOString()
-
-    let activeLessonId: number | null = null
-
-    for (let i = 0; i < lessons.length; i++) {
-        const current = lessons[i]
-
-        if (
-            DateTime.fromJSDate(current.start) < DateTime.now()
-            && DateTime.fromJSDate(current.end) > DateTime.now()
-        ) {
-            activeLessonId = current.id
-            break
-        }
-
-        if (DateTime.fromJSDate(current.start) > DateTime.now()) {
-            activeLessonId = current.id
-            break
-        }
-    }
+    const activeLessonId = useActiveLessonId(props.day.lessons)
 
     return (
         <div className="grid gap-4">
 
 
             {!!props.day.lessons.length && props.day.lessons.map((lesson, i) => (
-                <Lesson key={i} lesson={lesson} isActive={isToday && activeLessonId === lesson.id}
+                <Lesson key={i} lesson={lesson} isActive={activeLessonId === lesson.id}
                     type={props.type}
                 />
             ))}

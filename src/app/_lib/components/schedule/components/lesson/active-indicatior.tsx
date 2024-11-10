@@ -1,12 +1,12 @@
 import DateTime from "~/lib/utils/datetime"
 import formatNounWithNumber from "~/lib/utils/format-noun-with-number";
 
-interface ActiveIndicatiorProps {
+export interface ActiveIndicatiorProps {
     start: Date
     end: Date
 }
 
-function formatDiff(targetDateTime) {
+export function formatDiff(targetDateTime) {
     const now = DateTime.now();
     const diff = targetDateTime.diff(now);
 

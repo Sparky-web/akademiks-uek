@@ -52,7 +52,7 @@ export default function EditData() {
 
 
     return (
-        <form className="grid gap-6" onSubmit={e => {
+        <form className="grid gap-6 lg:grid-cols-2" onSubmit={e => {
             e.preventDefault()
             form.handleSubmit()
         }}>

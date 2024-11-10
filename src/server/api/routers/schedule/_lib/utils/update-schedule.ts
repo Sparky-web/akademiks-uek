@@ -1,4 +1,5 @@
-import { DateTime } from "luxon";
+import DateTime from "~/lib/utils/datetime"
+
 import { LessonParsed } from "~/lib/utils/schedule/flatten-schedule";
 import { P } from "~/components/ui/typography";
 import translit from "~/lib/utils/translit";

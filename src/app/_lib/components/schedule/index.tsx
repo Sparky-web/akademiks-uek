@@ -9,6 +9,8 @@ import EmptyWeek from "./components/empty-week"
 import EmptyDay from "./components/empty-day"
 import { P } from "~/components/ui/typography"
 import { withErrorBoundary } from "../../utils/error-boundary"
+import DesktopSchedule from "./components/desktop"
+import WeekSelector from "./components/week-picker-desktop"
 
 export interface ScheduleProps {
     type: 'student' | 'teacher'
@@ -43,38 +45,49 @@ function Schedule(props: ScheduleProps) {
     const isEmpty = !data.data.length || !data.data.find(day => day.lessons.length)
 
     return (
-        <div className="grid gap-6">
-            <PageTitle>
-                Расписание: {data.type === 'student' ? data.group?.title : data.teacher?.name}
-            </PageTitle>
+        <div className="grid gap-6 w-full overflow-hidden">
+            <div className="flex gap-3 items-center content-center">
+                <PageTitle>
+                    Расписание: {data.type === 'student' ? data.group?.title : data.teacher?.name}
+                </PageTitle>
+                <div className="w-fit ml-auto max-lg:hidden">
+                    <WeekSelector weekStart={weekStart} onChange={setWeekStart} />
+                </div>
+            </div>
 
-            <DayPicker
-                days={data.data}
-                weekStart={weekStart} onChange={setWeekStart}
-                selectedDayStart={selectedDayStart}
-                onSelectDay={setSelectedDayStart}
-            />
+            <div className="grid gap-6 lg:hidden">
+                <DayPicker
+                    days={data.data}
+                    weekStart={weekStart} onChange={setWeekStart}
+                    selectedDayStart={selectedDayStart}
+                    onSelectDay={setSelectedDayStart}
+                />
 
-            <div className="grid gap-4 mt-4">
-                {isEmpty &&
-                    <div className="mt-6">
-                        <EmptyWeek onReturn={() => setWeekStart(DateTime.now().startOf('week').toJSDate())} />
-                    </div>
-                }
+                <div className="grid gap-4 mt-4">
+                    {isEmpty &&
+                        <div className="mt-6">
+                            <EmptyWeek onReturn={() => setWeekStart(DateTime.now().startOf('week').toJSDate())} />
+                        </div>
+                    }
 
-                {!isEmpty && !foundDay?.lessons.length &&
-                    <div className="mt-6">
-                        <EmptyDay />
-                    </div>
-                }
+                    {!isEmpty && !foundDay?.lessons.length &&
+                        <div className="mt-6">
+                            <EmptyDay />
+                        </div>
+                    }
 
-                {!isEmpty && foundDay &&
-                    <Day day={foundDay} type={props.type} />
-                }
+                    {!isEmpty && foundDay &&
+                        <Day day={foundDay} type={props.type} />
+                    }
 
-                {!isEmpty && <P className="font-medium text-sm w-fit py-1 px-3 rounded-xl bg-muted mx-auto mt-3">
-                    {DateTime.fromJSDate(selectedDayStart).toLocaleString(DateTime.DATE_HUGE)}
-                </P>}
+                    {!isEmpty && <P className="font-medium text-sm w-fit py-1 px-3 rounded-xl bg-muted mx-auto mt-3">
+                        {DateTime.fromJSDate(selectedDayStart).toLocaleString(DateTime.DATE_HUGE)}
+                    </P>}
+                </div>
+            </div>
+
+            <div className="hidden lg:grid gap-6 w-full overflow-hidden">
+                <DesktopSchedule schedule={data} weekStart={weekStart} />
             </div>
         </div>
     )

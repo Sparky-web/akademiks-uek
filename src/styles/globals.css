@@ -95,6 +95,9 @@
     @apply bg-background text-foreground;
   } */
 }
+body {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
 
 /* HTML: <div class="loader"></div> */
 .loader {

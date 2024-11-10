@@ -1,5 +1,5 @@
 import { ChevronLeft } from "lucide-react"
-import { DateTime } from "luxon"
+import DateTime from "~/lib/utils/datetime"
 import Link from "next/link"
 import Schedule from "~/app/_lib/components/schedule"
 import { Button } from "~/components/ui/button"

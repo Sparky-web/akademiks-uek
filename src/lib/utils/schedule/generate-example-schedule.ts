@@ -1,5 +1,5 @@
 
-import { DateTime } from "luxon";
+import DateTime from "~/lib/utils/datetime"
 import { db as prisma } from "../../../server/db"
 import { Lesson } from "@prisma/client";
 // Расписание пар

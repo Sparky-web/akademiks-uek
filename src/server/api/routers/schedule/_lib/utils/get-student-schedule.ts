@@ -1,5 +1,5 @@
 import { Lesson } from "@prisma/client"
-import { DateTime } from "luxon"
+import DateTime from "~/lib/utils/datetime"
 import { db } from "~/server/db"
 
 const getStudentSchedule = async (groupId: string, weekStart: Date) => {
