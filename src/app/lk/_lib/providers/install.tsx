@@ -12,7 +12,7 @@ export default function InstallProvider({ children }: { children: React.ReactNod
         const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches;
 
 
-        if (isMobile && (isStandalone || isInStandaloneMode)) {
+        if (isMobile && !(isStandalone || isInStandaloneMode)) {
             setTimeout(() => {
                 showInstallInstructions()
             }, 10000)
