@@ -15,7 +15,6 @@ export default function ScheduleScreen() {
 
       {!user &&
         <div className="mt-6">
-
           <NoUserScreen>
             <NoUserScreenTitle>Для продолжения необходимо войти в аккаунт</NoUserScreenTitle>
             <NoUserScreenText>

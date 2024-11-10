@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card"
+import Card, { CardTitle } from '~/app/_lib/components/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
@@ -49,7 +49,7 @@ function Component({ scheduleData }: { scheduleData?: ScheduleItem[] }) {
         let minDate = Infinity
 
         scheduleData.forEach(item => {
-            if(item.title === null) return
+            if (item.title === null) return
 
             maxDate = Math.max(maxDate, new Date(item.start).getTime())
             minDate = Math.min(minDate, new Date(item.start).getTime())
@@ -63,7 +63,7 @@ function Component({ scheduleData }: { scheduleData?: ScheduleItem[] }) {
             groupCount,
             classroomCount,
             teacherCount,
-            totalCount: scheduleData.length,
+            totalCount: scheduleData.filter(e => e.title).length,
             minDate: DateTime.fromMillis(minDate).toFormat('dd.MM.yyyy'),
             maxDate: DateTime.fromMillis(maxDate).toFormat('dd.MM.yyyy'),
         }
@@ -77,7 +77,7 @@ function Component({ scheduleData }: { scheduleData?: ScheduleItem[] }) {
         let maxIndex = 0
 
         scheduleData.forEach(item => {
-            if(item.title === null) return
+            if (item.title === null) return
 
             const date = new Date(item.start).toLocaleDateString()
             if (!schedule[date]) {
@@ -122,100 +122,93 @@ function Component({ scheduleData }: { scheduleData?: ScheduleItem[] }) {
         return
     }
 
-
-
     return (
         <Card className="max-w-full overflow-hidden">
-            <CardHeader>
-                <CardTitle>Предпросмотр расписания</CardTitle>
-            </CardHeader>
-            <CardContent className='max-w-full'>
-                <Tabs value={activeTab} onValueChange={setActiveTab} className='max-w-full'>
-                    <TabsList>
-                        <TabsTrigger value="summary">Сводка</TabsTrigger>
-                        <TabsTrigger value="fullSchedule">Полное расписание</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="summary">
-                        <div className="grid gap-4">
-                            <div className="gap-2 mt-2 font-medium">
-                                <div className=''>Всего пар: {summary!.totalCount}</div>
-                                <div className=''>Период: {summary!.minDate} - {summary!.maxDate}</div>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <SummaryCard title="По группам" data={summary!.groupCount} />
-                                <SummaryCard title="По кабинетам" data={summary!.classroomCount} />
-                                <SummaryCard title="По преподавателям" data={summary!.teacherCount} />
-                            </div>
+            <CardTitle>Предпросмотр расписания</CardTitle>
+            <Tabs value={activeTab} onValueChange={setActiveTab} className='max-w-full overflow-hidden'>
+                <TabsList>
+                    <TabsTrigger value="summary">Сводка</TabsTrigger>
+                    <TabsTrigger value="fullSchedule">Полное расписание</TabsTrigger>
+                </TabsList>
+                <TabsContent value="summary">
+                    <div className="grid gap-4">
+                        <div className="gap-2 mt-2 font-medium">
+                            <div className=''>Всего пар: {summary!.totalCount}</div>
+                            <div className=''>Период: {summary!.minDate} - {summary!.maxDate}</div>
                         </div>
-                    </TabsContent>
-                    <TabsContent value="fullSchedule" className=''>
-                        <div className='overflow-x-auto border rounded-md '>
-                            <ScrollArea className="h-[80dvh] relative w-full">
-
-                                <table className="w-full border-collapse">
-                                    <thead className="sticky top-0 z-20 bg-background">
-                                        <tr>
-                                            <th className="border p-2 text-left sticky left-0 z-20 bg-background">Дата</th>
-                                            {fullSchedule!.groups.map((group) => (
-                                                <th key={group} className="border p-2 text-left">
-                                                    {group}
-                                                </th>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <SummaryCard title="По группам" data={summary!.groupCount} />
+                            <SummaryCard title="По кабинетам" data={summary!.classroomCount} />
+                            <SummaryCard title="По преподавателям" data={summary!.teacherCount} />
+                        </div>
+                    </div>
+                </TabsContent>
+                <TabsContent value="fullSchedule" className=''>
+                    <div className='overflow-x-auto border rounded-md max-w-full w-full'>
+                        <ScrollArea className="h-[80dvh] relative w-full">
+                            <table className="w-full border-collapse">
+                                <thead className="sticky top-0 z-20 bg-background">
+                                    <tr>
+                                        <th className="border p-2 text-left sticky left-0 z-20 bg-background">Дата</th>
+                                        {fullSchedule!.groups.map((group) => (
+                                            <th key={group} className="border p-2 text-left">
+                                                {group}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {Object.entries(fullSchedule!.schedule).map(([date, groupSchedule]) => (
+                                        <tr key={date} className='border-t-2 border-b-2 border-gray-500'>
+                                            <td className="border p-2 font-medium sticky left-0 z-10 bg-background align-top ">
+                                                {formatDate(date)}
+                                            </td>
+                                            {fullSchedule!.groups.map(group => (
+                                                <td key={`${date}-${group}`} className="border p-0  min-w-[250px] align-top ">
+                                                    <div className="grid grid-cols-1 divide-y">
+                                                        {groupSchedule[group]?.map((item, index) => (
+                                                            <div key={index} className="p-2 min-h-[120px] min-w-[250px] max-h-[120px] overflow-auto">
+                                                                {Array.isArray(item) ? (
+                                                                    <div className="grid grid-cols-2 break-words hyphens-auto">
+                                                                        {item.map((subItem, subIndex) => (
+                                                                            <div key={subIndex} className="flex-1 p-1">
+                                                                                <div className="font-medium text-xs">{subItem.title}</div>
+                                                                                <div className="text-xs text-muted-foreground">
+                                                                                    {formatTime(subItem.start)} - {formatTime(subItem.end)}
+                                                                                </div>
+                                                                                <div className="text-xs text-muted-foreground">
+                                                                                    {subItem.classroom}, {subItem.teacher}
+                                                                                </div>
+                                                                                <div className="text-xs font-medium">Подгруппа {subItem.subgroup}</div>
+                                                                            </div>
+                                                                        ))}
+                                                                    </div>
+                                                                ) : item ? (
+                                                                    <>
+                                                                        <div className="font-medium text-sm">{item.title}</div>
+                                                                        <div className="text-xs text-muted-foreground">
+                                                                            {formatTime(item.start)} - {formatTime(item.end)}
+                                                                        </div>
+                                                                        <div className="text-xs text-muted-foreground">{item.classroom}, {item.teacher}</div>
+                                                                        {item.subgroup && <div className="text-xs font-medium">Подгруппа {item.subgroup}</div>}
+                                                                    </>
+                                                                ) : (
+                                                                    <div className="text-sm text-muted-foreground">Нет пары</div>
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </td>
                                             ))}
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {Object.entries(fullSchedule!.schedule).map(([date, groupSchedule]) => (
-                                            <tr key={date} className='border-t-2 border-b-2 border-gray-500'>
-                                                <td className="border p-2 font-medium sticky left-0 z-10 bg-background align-top ">
-                                                    {formatDate(date)}
-                                                </td>
-                                                {fullSchedule!.groups.map(group => (
-                                                    <td key={`${date}-${group}`} className="border p-0  min-w-[250px] align-top ">
-                                                        <div className="grid grid-cols-1 divide-y">
-                                                            {groupSchedule[group]?.map((item, index) => (
-                                                                <div key={index} className="p-2 min-h-[120px] min-w-[250px] max-h-[120px] overflow-auto">
-                                                                    {Array.isArray(item) ? (
-                                                                        <div className="grid grid-cols-2 break-words hyphens-auto">
-                                                                            {item.map((subItem, subIndex) => (
-                                                                                <div key={subIndex} className="flex-1 p-1">
-                                                                                    <div className="font-medium text-xs">{subItem.title}</div>
-                                                                                    <div className="text-xs text-muted-foreground">
-                                                                                        {formatTime(subItem.start)} - {formatTime(subItem.end)}
-                                                                                    </div>
-                                                                                    <div className="text-xs text-muted-foreground">
-                                                                                        {subItem.classroom}, {subItem.teacher}
-                                                                                    </div>
-                                                                                    <div className="text-xs font-medium">Подгруппа {subItem.subgroup}</div>
-                                                                                </div>
-                                                                            ))}
-                                                                        </div>
-                                                                    ) : item ? (
-                                                                        <>
-                                                                            <div className="font-medium text-sm">{item.title}</div>
-                                                                            <div className="text-xs text-muted-foreground">
-                                                                                {formatTime(item.start)} - {formatTime(item.end)}
-                                                                            </div>
-                                                                            <div className="text-xs text-muted-foreground">{item.classroom}, {item.teacher}</div>
-                                                                            {item.subgroup && <div className="text-xs font-medium">Подгруппа {item.subgroup}</div>}
-                                                                        </>
-                                                                    ) : (
-                                                                        <div className="text-sm text-muted-foreground">Нет пары</div>
-                                                                    )}
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </td>
-                                                ))}
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                                <ScrollBar orientation='horizontal' />
-                            </ScrollArea>
-                        </div>
-                    </TabsContent>
-                </Tabs>
-            </CardContent>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <ScrollBar orientation='horizontal' />
+                        </ScrollArea>
+                    </div>
+                </TabsContent>
+            </Tabs>
         </Card>
     )
 }
@@ -225,30 +218,26 @@ function SummaryCard({ title, data }: { title: string, data: Record<string, numb
 
     return (
         <Card >
-            <CardHeader className='p-4'>
-                <CardTitle className='text-base'>{title}</CardTitle>
-            </CardHeader>
-            <CardContent className='p-3'>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className='p-1'>Название</TableHead>
-                            <TableHead className='p-1'>Количество пар</TableHead>
+            <CardTitle className='text-base'>{title}</CardTitle>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead className='p-1'>Название</TableHead>
+                        <TableHead className='p-1'>Количество пар</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {Object.entries(data).sort(
+                        (a, b) => b[1] - a[1]
+                    ).slice(0, displayFull ? Object.entries(data).length : 10).map(([name, count]) => (
+                        <TableRow key={name} className='p-1'>
+                            <TableCell className='p-1'>{name}</TableCell>
+                            <TableCell className='p-1'>{count}</TableCell>
                         </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {Object.entries(data).sort(
-                            (a, b) => b[1] - a[1]
-                        ).slice(0, displayFull ? Object.entries(data).length : 10).map(([name, count]) => (
-                            <TableRow key={name} className='p-1'>
-                                <TableCell className='p-1'>{name}</TableCell>
-                                <TableCell className='p-1'>{count}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-                {!displayFull && Object.entries(data).length > 10 && <Button variant={'ghost'} className='text-xs text-center mt-2 w-full' onClick={() => setDisplayFull(true)}>Показать все</Button>}
-            </CardContent>
+                    ))}
+                </TableBody>
+            </Table>
+            {!displayFull && Object.entries(data).length > 10 && <Button variant={'ghost'} className='text-xs text-center mt-2 w-full' onClick={() => setDisplayFull(true)}>Показать все</Button>}
         </Card>
     )
 }

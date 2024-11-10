@@ -10,43 +10,91 @@ const getTeacherSchedule = async (teacherId: string, weekStart: Date) => {
 
     if(!teacher) throw new Error('Не найден преподаватель c id:' + teacherId)
 
-    const data = await db.day.findMany({
+    // const data = await db.day.findMany({
+    //     orderBy: {
+    //         start: 'asc'
+    //     },
+    //     where: {
+    //         teacherId,
+    //         start: {
+    //             gte: weekStart,
+    //             lt: DateTime.fromJSDate(weekStart).plus({ week: 1 }).toJSDate()
+    //         }
+    //     },
+    //     include: {
+    //         lessons: {
+    //             orderBy: {
+    //                 index: 'asc'
+    //             },
+    //             include: {
+    //                 Groups: {
+    //                     select: {
+    //                         id: true,
+    //                         title: true
+    //                     }
+    //                 },
+    //                 Teacher: {
+    //                     select: {
+    //                         id: true,
+    //                         name: true
+    //                     }
+    //                 },
+    //                 Classroom: true
+    //             }
+    //         }
+    //     }
+    // })
+
+    const data = await db.lesson.findMany({
         orderBy: {
             start: 'asc'
         },
         where: {
-            teacherId,
+            Teacher: {
+                id: teacherId
+            },
             start: {
                 gte: weekStart,
                 lt: DateTime.fromJSDate(weekStart).plus({ week: 1 }).toJSDate()
             }
         },
         include: {
-            lessons: {
-                orderBy: {
-                    index: 'asc'
-                },
-                include: {
-                    Groups: {
-                        select: {
-                            id: true,
-                            title: true
-                        }
-                    },
-                    Teacher: {
-                        select: {
-                            id: true,
-                            name: true
-                        }
-                    },
-                    Classroom: true
+            Groups: {
+                select: {
+                    id: true,
+                    title: true
                 }
-            }
+            },
+            Teacher: {
+                select: {
+                    id: true,
+                    name: true
+                }
+            },
+            Classroom: true
         }
     })
 
+    const days: {
+        start: Date,
+        lessons: any[]
+    }[] = []
+
+    for (let lesson of data) {
+        const foundDay = days.find(day => day.start.toString() === lesson.startDay.toString())
+
+        if (!foundDay) {
+            days.push({
+                start: lesson.startDay,
+                lessons: [lesson]
+            })
+        } else {
+            foundDay.lessons.push(lesson)
+        }   
+    }
+
     return {
-        data,
+        data: days,
         type: 'teacher',
         teacher: teacher
     }

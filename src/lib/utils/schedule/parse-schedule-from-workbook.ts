@@ -1,7 +1,7 @@
-import config from "~/app/lk/add-schedule/_lib/utils/config";
-import flattenSchedule from "~/app/lk/add-schedule/_lib/utils/flatten-schedule";
-import getRowData from "~/app/lk/add-schedule/_lib/utils/get-row-data";
-import parseStringFromTemplate from "~/app/lk/add-schedule/_lib/utils/parse-string-from-template";
+import config from "~/lib/utils/schedule/config";
+import flattenSchedule from "~/lib/utils/schedule/flatten-schedule";
+import getRowData from "~/lib/utils/schedule/get-row-data";
+import parseStringFromTemplate from "~/lib/utils/schedule/parse-string-from-template";
 
 export default function parseScheduleFromWorkbook(workbook: XLSX.WorkBook) {
     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -34,6 +34,8 @@ export default function parseScheduleFromWorkbook(workbook: XLSX.WorkBook) {
             let groupIndex = 0;
             for (let j = startGroups; j < endGroups; j = j + config.groups.length) {
                 const groupTitle = groupsTitleRowData[j + 1]
+
+                if(!groupTitle) continue
 
                 // Каждыя группа
                 if (!groups[groupIndex]) {
@@ -94,6 +96,22 @@ export default function parseScheduleFromWorkbook(workbook: XLSX.WorkBook) {
                     })
                 }
 
+                if (classroomFirst && !teacherSecond) {
+                    lessons.push({
+                        title: null,
+                        index: lessonIndex,
+                        group: 2
+                    })
+                }
+
+                if (!classroomFirst && teacherSecond) {
+                    lessons.push({
+                        title: null,
+                        index: lessonIndex,
+                        group: 1
+                    })
+                }
+
                 if (!classroomFirst && !teacherSecond && title) {
                     lessons.push({
                         title: title,
@@ -104,7 +122,7 @@ export default function parseScheduleFromWorkbook(workbook: XLSX.WorkBook) {
                     })
                 }
 
-                if(!classroomFirst && !teacherSecond && !title) {
+                if (!classroomFirst && !teacherSecond && !title) {
                     lessons.push({
                         title: null,
                         index: lessonIndex

@@ -1,3 +1,4 @@
+import { Lesson } from "@prisma/client"
 import { DateTime } from "luxon"
 import { db } from "~/server/db"
 
@@ -8,45 +9,61 @@ const getStudentSchedule = async (groupId: string, weekStart: Date) => {
         }
     })
 
-    if(!group) throw new Error('Не найден группа c id:' + groupId)
+    if (!group) throw new Error('Не найден группа c id:' + groupId)
 
-    const data = await db.day.findMany({
+    const data = await db.lesson.findMany({
         orderBy: {
             start: 'asc'
         },
         where: {
-            groupId: groupId,
+            Groups: {
+                some: {
+                    id: groupId
+                }
+            },
             start: {
                 gte: weekStart,
                 lt: DateTime.fromJSDate(weekStart).plus({ week: 1 }).toJSDate()
             }
         },
         include: {
-            lessons: {
-                orderBy: {
-                    index: 'asc'
-                },
-                include: {
-                    Teacher: {
-                        select: {
-                            id: true,
-                            name: true
-                        }
-                    },
-                    Groups: {
-                        select: {
-                            id: true,
-                            title: true
-                        }
-                    },
-                    Classroom: true
+            Teacher: {
+                select: {
+                    id: true,
+                    name: true
                 }
-            }
+            },
+            Groups: {
+                select: {
+                    id: true,
+                    title: true
+                }
+            },
+            Classroom: true
         }
     })
 
+
+    const days: {
+        start: Date,
+        lessons: Lesson[]
+    }[] = []
+
+    for (let lesson of data) {
+        const foundDay = days.find(day => day.start.toString() === lesson.startDay.toString())
+
+        if (!foundDay) {
+            days.push({
+                start: lesson.startDay,
+                lessons: [lesson]
+            })
+        } else {
+            foundDay.lessons.push(lesson)
+        }
+    }
+
     return {
-        data,
+        data: days,
         type: 'student',
         group: group
     }

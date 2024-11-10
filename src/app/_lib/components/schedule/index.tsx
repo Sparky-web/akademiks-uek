@@ -36,6 +36,8 @@ function Schedule(props: ScheduleProps) {
 
     if (!data) return 'Загрузка...'
 
+    console.log(data)
+
     const foundDay = data.data.find(day => day.start.toISOString() === selectedDayStart.toISOString())
 
     const isEmpty = !data.data.length || !data.data.find(day => day.lessons.length)

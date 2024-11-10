@@ -8,7 +8,7 @@ import path from 'path';
 import fs from 'fs';
 import * as XLSX from 'xlsx';
 
-import parseScheduleFromWorkbook from "~/lib/utils/parse-schedule-from-workbook";
+import parseScheduleFromWorkbook from "~/lib/utils/schedule/parse-schedule-from-workbook";
 import updateSchedule from "~/server/api/routers/schedule/_lib/utils/update-schedule";
 
 const scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive'];

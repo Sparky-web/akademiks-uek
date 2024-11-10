@@ -5,6 +5,7 @@ import SetUserProvider from "./_lib/providers/set-user"
 import { api } from "~/trpc/server"
 import DateTime from "~/lib/utils/datetime"
 import Menu from "../_lib/components/menu"
+import InstallProvider from "./_lib/providers/install"
 
 export default async function LkLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerAuthSession()
@@ -20,12 +21,14 @@ export default async function LkLayout({ children }: { children: React.ReactNode
     return (
         <div className="max-lg:container max-lg:pt-6 max-lg:pb-[calc(16px+84px)] lg:grid lg:grid-cols-[250px,1fr] lg:h-screen min-h-screen grid">
             <SetUserProvider userData={user}>
-                <Menu />
-                {/* <Suspense fallback="loading..."> */}
-                <div className="lg:h-full lg:overflow-y-auto lg:py-8 lg:px-10 lg:relative">
-                    {children}
-                </div>
-                {/* </Suspense> */}
+                <InstallProvider>
+                    <Menu />
+                    {/* <Suspense fallback="loading..."> */}
+                    <div className="lg:h-full lg:overflow-y-auto lg:py-8 lg:px-10 lg:relative">
+                        {children}
+                    </div>
+                    {/* </Suspense> */}
+                </InstallProvider>
             </SetUserProvider>
         </div>
     )

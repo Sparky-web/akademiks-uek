@@ -1,24 +1,21 @@
-import { SheetSchedule } from "./parse-schedule";
+import { SheetSchedule } from "../../../app/lk/add-schedule/_lib/utils/parse-schedule";
 import { DateTime, Duration } from "luxon";
 import { Lesson } from "~/types/schedule";
 import config from "./config";
 
-export type LessonParsed =  {
+export type LessonParsed = {
     index: number
-    title: string
     start: Date
     end: Date
-    classroom: string
-    teacher: string
     group: string
     subgroup: number | null
+} & ({
+    title: string
+    classroom: string
+    teacher: string
 } | {
-    index: number
     title: null
-    start: Date
-    end: Date
-    group: string
-}
+})
 
 export default function flattenSchedule(schedule: SheetSchedule[]): LessonParsed[] {
     const lessons: LessonParsed[] = []
@@ -31,13 +28,14 @@ export default function flattenSchedule(schedule: SheetSchedule[]): LessonParsed
                 const start = startDay.plus(Duration.fromISOTime(config.timetable[lesson.index - 1].start))
                 const end = startDay.plus(Duration.fromISOTime(config.timetable[lesson.index - 1].end))
 
-                if(lesson.title === null) {
+                if (lesson.title === null) {
                     lessons.push({
                         index: lesson.index,
                         title: null,
                         start: start.toJSDate(),
                         end: end.toJSDate(),
-                        group: group.title
+                        group: group.title,
+                        subgroup: lesson.group
                     })
 
                     return

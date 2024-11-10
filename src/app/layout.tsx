@@ -81,6 +81,38 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', upd
 `
         }}>
         </script>
+
+        {/* <script dangerouslySetInnerHTML={{
+          __html: `
+          let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Предотвращаем автоматический показ запроса на установку
+  e.preventDefault();
+  // Сохраняем событие для последующего использования
+  deferredPrompt = e;
+  
+  // Запускаем таймер на 20 секунд
+  setTimeout(() => {
+    if (deferredPrompt) {
+      // Показываем пользователю запрос на установку PWA
+      deferredPrompt.prompt();
+      
+      // Обрабатываем выбор пользователя
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('Пользователь установил PWA');
+        } else {
+          console.log('Пользователь отклонил установку PWA');
+        }
+        // Обнуляем сохранённое событие, так как оно уже использовано
+        deferredPrompt = null;
+      });
+    }
+  }, 20000); // 20000 миллисекунд = 20 секунд
+});
+`
+        }}></script> */}
       </body>
 
     </html>

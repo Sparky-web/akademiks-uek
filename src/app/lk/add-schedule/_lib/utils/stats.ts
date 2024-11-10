@@ -1,4 +1,4 @@
-import { LessonParsed } from "./flatten-schedule";
+import { LessonParsed } from "../../../../../lib/utils/schedule/flatten-schedule";
 
 export function getUniqueGroups(lessons: LessonParsed[]) {
     const groups = []

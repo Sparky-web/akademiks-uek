@@ -37,11 +37,14 @@ model Lesson {
   teacherId String?
   Teacher   Teacher? @relation(fields: [teacherId], references: [id])
 
-  Groups Group[]
-  Days   Day[]
+  Groups   Group[]
+  // Days   Day[]
+  startDay DateTime @default(now())
 
   Classroom   Classroom? @relation(fields: [classroomId], references: [id])
   classroomId Int?
+  // Day         Day?       @relation(fields: [dayId], references: [id])
+  // dayId       Int?
 }
 
 model Day {
@@ -54,9 +57,9 @@ model Day {
   teacherId String?
   Teacher   Teacher? @relation(fields: [teacherId], references: [id])
 
-  lessons Lesson[]
-  User    User?    @relation(fields: [userId], references: [id])
-  userId  String?
+  // lessons Lesson[]
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
 
   @@unique([start, groupId])
   @@unique([start, teacherId])
@@ -64,7 +67,7 @@ model Day {
 
 model Classroom {
   id   Int    @id @default(autoincrement())
-  name String
+  name String @unique
 
   Lessons Lesson[]
 }
@@ -180,7 +183,7 @@ model VerificationToken {
 }
 
 model Config {
-  id String @id @default("config")
+  id                      String @id @default("config")
   parseSpreadsheetPageUrl String @default("https://urtt.ru/students/dnevnoe/raspisaniya/")
-  parseInterval Int @default(1200000)
+  parseInterval           Int    @default(1200000)
 }

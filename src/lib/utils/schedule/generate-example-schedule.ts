@@ -1,6 +1,6 @@
 
 import { DateTime } from "luxon";
-import { db as prisma } from "../../server/db"
+import { db as prisma } from "../../../server/db"
 import { Lesson } from "@prisma/client";
 // Расписание пар
 const scheduleTimes = [

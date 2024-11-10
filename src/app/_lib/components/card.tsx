@@ -7,7 +7,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function Card({ children, ...props }: Props) {
     return (
-        <div {...props} className={cn("bg-card rounded-2xl p-4 shadow-sm grid gap-4", props.className)} >
+        <div {...props} className={cn("bg-card rounded-2xl p-4 shadow-sm grid gap-4 content-start", props.className)} >
             {children}
         </div>
     )

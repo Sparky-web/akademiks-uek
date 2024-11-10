@@ -1,4 +1,4 @@
-import parseBackground from "~/lib/utils/parse-background";
+import parseBackground from "~/lib/utils/schedule/parse-background";
 
 export const dynamic = "force-dynamic";
 

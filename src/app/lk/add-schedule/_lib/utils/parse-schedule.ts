@@ -1,12 +1,8 @@
 'use client'
 
 import * as XLSX from 'xlsx';
-import getRowData from './get-row-data';
-import parseStringFromTemplate from './parse-string-from-template';
 import fileToArrayBuffer from './file-to-array-buffer';
-import config from './config';
-import flattenSchedule from './flatten-schedule';
-import parseScheduleFromWorkbook  from '~/lib/utils/parse-schedule-from-workbook';
+import parseScheduleFromWorkbook  from '~/lib/utils/schedule/parse-schedule-from-workbook';
 
 
 export interface SheetSchedule {

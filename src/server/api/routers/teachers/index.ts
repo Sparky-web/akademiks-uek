@@ -6,6 +6,9 @@ export default createTRPCRouter({
             select: {
                 id: true,
                 name: true
+            },
+            orderBy: {
+                name: 'asc'
             }
         })
     })
