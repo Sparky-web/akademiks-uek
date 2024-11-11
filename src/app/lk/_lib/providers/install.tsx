@@ -8,6 +8,9 @@ export default function InstallProvider({ children }: { children: React.ReactNod
     const { showInstallInstructions, InstallDrawer } = useInstall()
 
     useEffect(() => {
+        const isRejected = window.localStorage.getItem('rejectedInstall')
+        if (isRejected) return
+
         const isStandalone = window.navigator.standalone;
         const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches;
 
@@ -15,6 +18,7 @@ export default function InstallProvider({ children }: { children: React.ReactNod
         if (isMobile && !(isStandalone || isInStandaloneMode)) {
             setTimeout(() => {
                 showInstallInstructions()
+                window.localStorage.setItem('rejectedInstall', 'true')
             }, 10000)
         }
     }, [])
