@@ -51,7 +51,7 @@ export default async function getScheduleDifference(schedule: LessonParsed[]) {
             return l.start.toString() === lesson.start.toString() && l.end.toString() === lesson.end.toString() &&
                 l.title === lesson.title &&
                 l.Group?.title === lesson.group &&
-                l.Teacher?.name === lesson.teacher &&
+                l.Teacher?.name === (lesson.teacher || "Не указан") &&
                 l?.Classroom?.name === lesson.classroom &&
                 l.subgroup === lesson.subgroup
         })

@@ -81,7 +81,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                         Classroom: {
                             connectOrCreate: {
                                 where: {
-                                    name: lesson.to.classroom
+                                    name: lesson.to.classroom 
                                 },
                                 create: {
                                     name: lesson.to.classroom
