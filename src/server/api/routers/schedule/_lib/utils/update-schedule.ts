@@ -40,7 +40,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
 
     const difference = await getScheduleDifference(schedule)
 
-  
+
     const result: ResultItem[] = []
 
     for (let lesson of difference) {
@@ -69,12 +69,12 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                         Teacher: {
                             connectOrCreate: {
                                 where: {
-                                    id: translit(lesson.to.teacher),
-                                    name: lesson.to.teacher
+                                    id: translit(lesson.to.teacher || 'Не указан'),
+                                    name: lesson.to.teacher || 'Не указан'
                                 },
                                 create: {
-                                    id: translit(lesson.to.teacher),
-                                    name: lesson.to.teacher
+                                    id: translit(lesson.to.teacher || 'Не указан'),
+                                    name: lesson.to.teacher || 'Не указан'
                                 }
                             }
                         },
@@ -151,12 +151,12 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                         Teacher: {
                             connectOrCreate: {
                                 where: {
-                                    id: translit(lesson.to.teacher),
-                                    name: lesson.to.teacher
+                                    id: translit(lesson.to.teacher || 'Не указан'),
+                                    name: lesson.to.teacher || 'Не указан'
                                 },
                                 create: {
-                                    id: translit(lesson.to.teacher),
-                                    name: lesson.to.teacher
+                                    id: translit(lesson.to.teacher || 'Не указан'),
+                                    name: lesson.to.teacher || 'Не указан'
                                 }
                             }
                         },
