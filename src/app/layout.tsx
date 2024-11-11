@@ -45,7 +45,7 @@ export default async function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></link>
       </head>
       <body className="bg-background text-foreground">
-        <script dangerouslySetInnerHTML={{
+        <div dangerouslySetInnerHTML={{
           __html: `<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5V8WN3GB7"></script>
 <script>
