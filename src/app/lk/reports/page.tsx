@@ -113,7 +113,7 @@ function DetailedReportModal({ isOpen, onClose, report }) {
                         {results.map((result, index) => (
                             <TableRow key={index}>
                                 <TableCell>{translateType(result.type)}</TableCell>
-                                <TableCell>{result.status === 'success' ? 'Успешно' : 'Ошибка'}</TableCell>
+                                <TableCell>{result.status === 'success' ? 'Успешно' : 'Ошибка: ' + (result.error || '')}</TableCell>
                                 <TableCell>
                                     {result.inputItem && <LessonInfo lesson={result.inputItem} />}
                                 </TableCell>

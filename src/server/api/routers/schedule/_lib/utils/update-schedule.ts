@@ -8,7 +8,7 @@ import pMap from 'p-map';
 import getScheduleDifference from "./get-schedule-difference";
 import { Lesson } from "~/types/schedule";
 
-interface ResultItem {
+export interface ResultItem {
     type: "add" | "update" | "delete",
     status: "success" | "error",
     item?: Lesson | LessonParsed,
@@ -40,7 +40,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
 
     const difference = await getScheduleDifference(schedule)
 
-    const startedAt = new Date()
+  
     const result: ResultItem[] = []
 
     for (let lesson of difference) {
@@ -450,13 +450,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
         // await pMap(schedule, _updateSchedule, { concurrency: 1 })
     }
 
-    await db.report.create({
-        data: {
-            startedAt: startedAt,
-            endedAt: new Date(),
-            result: JSON.stringify(result.slice(0, 100))
-        }
-    })
+
 
     return result
 }

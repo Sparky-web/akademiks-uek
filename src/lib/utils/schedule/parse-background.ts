@@ -9,7 +9,7 @@ import fs from 'fs';
 import * as XLSX from 'xlsx';
 
 import parseScheduleFromWorkbook from "~/lib/utils/schedule/parse-schedule-from-workbook";
-import updateSchedule from "~/server/api/routers/schedule/_lib/utils/update-schedule";
+import updateSchedule, { ResultItem } from "~/server/api/routers/schedule/_lib/utils/update-schedule";
 
 const scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive'];
 
@@ -67,6 +67,8 @@ async function downloadSpreadsheetAsXLSX(sheetId: string) {
 }
 
 export default async function parseBackground() {
+    const startedAt = new Date()
+
     console.log('Triggered parseBackground')
     const config = await db.config.findFirst({
         select: {
@@ -79,6 +81,8 @@ export default async function parseBackground() {
 
     let links = await fetchPageLinks(config.parseSpreadsheetPageUrl);
 
+    const reports: ResultItem[] = []
+
     for (const link of links) {
         const sheetId = link.match(/[-\w]{25,}/)[0];
 
@@ -86,16 +90,25 @@ export default async function parseBackground() {
             console.error(`Ошибка при обновлении расписания: ${link}`)
             continue
         }
-        
+
         try {
             const buffer = await downloadSpreadsheetAsXLSX(sheetId);
             const workbook = XLSX.read(buffer, { type: 'array' });
             const data = parseScheduleFromWorkbook(workbook)
-            await updateSchedule(data)
+            const result = await updateSchedule(data)
+            reports.push(...result)
         } catch (e) {
             console.error(`Ошибка при обновлении расписания: ${sheetId}`, e.message)
         }
         console.log(`Обновлено расписание: ${sheetId}`)
     }
+
+    await db.report.create({
+        data: {
+            startedAt: startedAt,
+            endedAt: new Date(),
+            result: JSON.stringify(reports.slice(0, 100))
+        }
+    })
 }
 
