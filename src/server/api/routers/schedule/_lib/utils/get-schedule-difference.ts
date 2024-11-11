@@ -33,7 +33,8 @@ export default async function getScheduleDifference(schedule: LessonParsed[]) {
     const updated = []
 
     for (let lesson of schedule) {
-        const foundBase = findMatchingLessons(fetched, lesson)
+        // const foundBase = fetched.filter(e => e.start.toString() === lesson.start.toString() && e.end.toString() === lesson.end.toString() && e.Group?.title === lesson.group)
+        const foundBase = findMatchingLessons(fetched, lesson);
 
         if (foundBase.length && lesson.title === null && !lesson.subgroup) {
             updated.push(...foundBase.map(e => ({ from: e, to: null })))

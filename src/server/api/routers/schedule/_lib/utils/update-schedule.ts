@@ -11,8 +11,8 @@ import { Lesson } from "~/types/schedule";
 interface ResultItem {
     type: "add" | "update" | "delete",
     status: "success" | "error",
-    item?: Lesson,
-    inputItem?: LessonParsed,
+    item?: Lesson | LessonParsed,
+    inputItem?: Lesson | LessonParsed,
     error?: string
 }
 
@@ -40,6 +40,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
 
     const difference = await getScheduleDifference(schedule)
 
+    const startedAt = new Date()
     const result: ResultItem[] = []
 
     for (let lesson of difference) {
@@ -114,7 +115,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                         start: lesson.from.start,
                         end: lesson.from.end,
                         Group: {
-                            id: lesson.from.group
+                            id: lesson.from.groupId
                         },
                         subgroup: lesson.from.subgroup || null
                     },
@@ -180,13 +181,15 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                 result.push({
                     type: "update",
                     status: "success",
+                    inputItem: lesson.from,
                     item: item
                 })
             } catch (e) {
                 result.push({
                     type: "update",
                     status: "error",
-                    inputItem: lesson.to,
+                    inputItem: lesson.from,
+                    item: lesson.to,
                     error: e.message
                 })
             }
@@ -446,6 +449,14 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
 
         // await pMap(schedule, _updateSchedule, { concurrency: 1 })
     }
+
+    await db.report.create({
+        data: {
+            startedAt: startedAt,
+            endedAt: new Date(),
+            result: JSON.stringify(result.slice(0, 100))
+        }
+    })
 
     return result
 }

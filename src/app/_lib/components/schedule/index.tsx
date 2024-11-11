@@ -11,6 +11,10 @@ import { P } from "~/components/ui/typography"
 import { withErrorBoundary } from "../../utils/error-boundary"
 import DesktopSchedule from "./components/desktop"
 import WeekSelector from "./components/week-picker-desktop"
+import ErrorReportModal from "../errors/report-error"
+import Card from "../card"
+import { CardTitle } from "../card"
+import { AlertCircle } from "lucide-react"
 
 export interface ScheduleProps {
     type: 'student' | 'teacher'
@@ -89,6 +93,15 @@ function Schedule(props: ScheduleProps) {
             <div className="hidden lg:grid gap-6 w-full overflow-hidden">
                 <DesktopSchedule schedule={data} weekStart={weekStart} />
             </div>
+
+            <Card className="bg-amber-500/10 max-w-[400px]">
+                {/* <CardTitle className="">
+                    <AlertCircle className="w-5 h-5 mr-2 inline-block" />
+                    Приложение работает в тестовом режиме
+                </CardTitle> */}
+                <div className="text-sm">Если вы обнаружили ошибку в расписании, или другую неисправность, пожалуйста нажмите на кнопку ниже.</div>
+                <ErrorReportModal />
+            </Card>
         </div>
     )
 }

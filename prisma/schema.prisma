@@ -36,9 +36,9 @@ model Lesson {
 
   teacherId String?
   Teacher   Teacher? @relation(fields: [teacherId], references: [id])
-  
+
   groupId String?
-  Group   Group? @relation(fields: [groupId], references: [id])
+  Group   Group?  @relation(fields: [groupId], references: [id])
 
   // Days   Day[]
   startDay DateTime @default(now())
@@ -161,8 +161,16 @@ model User {
   teacherId String?  @unique
   Teacher   Teacher? @relation(fields: [teacherId], references: [id])
 
-  Day        Day[]
-  Favourites Favourite[]
+  Day         Day[]
+  Favourites  Favourite[]
+  ErrorReport ErrorReport[]
+}
+
+model Report {
+  id        Int      @id @default(autoincrement())
+  startedAt DateTime
+  endedAt   DateTime
+  result    String
 }
 
 model Group {
@@ -189,4 +197,13 @@ model Config {
   id                      String @id @default("config")
   parseSpreadsheetPageUrl String @default("https://urtt.ru/students/dnevnoe/raspisaniya/")
   parseInterval           Int    @default(1200000)
+}
+
+model ErrorReport {
+  id       Int      @id @default(autoincrement())
+  date     DateTime @default(now())
+  message  String
+  filePath String
+  userId   String?
+  User     User?    @relation(fields: [userId], references: [id])
 }

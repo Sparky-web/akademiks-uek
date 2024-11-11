@@ -1,5 +1,5 @@
 'use client'
-import { CalendarDays, Home, User, Upload, Users } from "lucide-react";
+import { CalendarDays, Home, User, Upload, Users, File } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, ReactElement, ReactNode } from "react";
@@ -55,6 +55,12 @@ export default function Menu() {
             title: 'Пользователи',
             path: '/lk/users',
             icon: Users
+        })
+
+        desktopMenu.push({
+            title: 'Отчеты',
+            path: '/lk/reports',
+            icon: File
         })
     }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { Upload, File, X } from 'lucide-react'
 import { Button } from '~/components/ui/button'
 
@@ -35,6 +35,12 @@ export default function Dropzone({ files, setFiles }: DragDropFilesProps) {
       inputRef.current.value = ''
     }
   }
+
+  useEffect(() => {
+    if(inputRef.current) {
+      inputRef.current.value = ''
+    }
+  }, [files])
 
 
   return (

@@ -16,7 +16,7 @@ import InitializationErrorCard from "~/app/_lib/components/errors/initialization
 export default function Page() {
     const user = useAppSelector(e => e.user?.user)
 
-    if(!user || !user.isAdmin) return <InitializationErrorCard message={"Вы не администратор, доступ запрещен"} />
+    if (!user || !user.isAdmin) return <InitializationErrorCard message={"Вы не администратор, доступ запрещен"} />
 
     const [files, setFiles] = useState<File[]>([])
     const [result, setResult] = useState<any>(null)
@@ -71,7 +71,15 @@ export default function Page() {
 
             {difference && <DifferenceView updated={difference} />}
 
-            {!!result?.length && <Button className="mt-2 max-w-[300px]" variant="default" size="lg" onClick={() => updateSchedule(result).then(console.log)}>
+            {!!result?.length && <Button
+                disabled={isPending}
+                className="mt-2 max-w-[300px]" variant="default" size="lg" onClick={() => updateSchedule(result).then(
+                    () => {
+                        toast.success('Расписание успешно обновлено')
+                        setResult(null)
+                        setFiles([])
+                    }
+                )}>
                 {isPending && <Loader2 className="animate-spin mr-2" />}
                 Загрузить расписание
             </Button>}
