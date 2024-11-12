@@ -19,7 +19,7 @@ export default function UserGroupSummaryChart() {
   }))
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>Статистика с разбивкой по группам</CardTitle>
         <CardDescription>Максимальное количество пользователей в группе не превышает 25</CardDescription>
@@ -44,7 +44,7 @@ export default function UserGroupSummaryChart() {
               <YAxis />
               <Bar dataKey="users" stackId="a" fill="var(--color-users)" radius={[4, 4, 0, 0]} />
               <Bar dataKey="capacity" stackId="a" fill="var(--color-capacity)" radius={[0, 0, 4, 4]} />
-              <ChartTooltip content={<ChartTooltipContent />} />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>
