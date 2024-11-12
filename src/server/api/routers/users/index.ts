@@ -57,7 +57,11 @@ export default createTRPCRouter({
       },
     });
 
-    const groups = await db.group.findMany();
+    const groups = await db.group.findMany({
+      orderBy: {
+        title: 'asc',
+      },
+    });
 
     const totalCount = groupSummary.reduce((acc, group) => acc + group._count._all, 0);
 
