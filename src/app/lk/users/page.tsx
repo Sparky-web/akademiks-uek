@@ -5,6 +5,7 @@ import InitializationErrorCard from "~/app/_lib/components/errors/initialization
 import PageTitle from "~/app/_lib/components/page-title";
 import { api } from "~/trpc/react";
 import UserTable from "./components/table";
+import UserSummary from "./components/summary";
 
 export default function Page() {
     const user = useAppSelector(e => e.user?.user)
@@ -16,6 +17,7 @@ export default function Page() {
             <PageTitle>Пользователи</PageTitle>
 
             <UserTable  />
+            <UserSummary />
         </div>
     )
 }

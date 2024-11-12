@@ -47,4 +47,31 @@ export default createTRPCRouter({
         totalCount,
       };
     }),
+  summary: protectedProcedure.query(async ({ ctx }) => {
+    if (!ctx.session?.user?.isAdmin) throw new Error('Доступ запрещен');
+
+    const groupSummary = await db.user.groupBy({
+      by: ['groupId'],
+      _count: {
+        _all: true,
+      },
+    });
+
+    const groups = await db.group.findMany();
+
+    const totalCount = groupSummary.reduce((acc, group) => acc + group._count._all, 0);
+
+    const items = groupSummary.map(group => {
+      const groupInfo = groups.find(g => g.id === group.groupId);
+      return {
+        title: groupInfo?.title || 'Без группы',
+        count: group._count._all,
+      };
+    });
+
+    return {
+      count: totalCount,
+      items,
+    };
+  }),
 });
