@@ -36,7 +36,7 @@ export default function UserGroupSummaryChart() {
             //   color: "hsl(var(--chart-2))",
             // },
           }}
-          className="h-[400px]"
+          className="h-[400px] w-full"
         >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
