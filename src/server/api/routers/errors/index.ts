@@ -39,4 +39,38 @@ export const errorReportRouter = createTRPCRouter({
 
       return { success: true, errorReportId: errorReport.id }
     }),
+    get: protectedProcedure
+    .input(
+      z.object({
+        page: z.number().min(1).default(1),
+        limit: z.number().min(1).max(100).default(10),
+      })
+    )
+    .query(async ({ input }) => {
+      const { page, limit } = input
+      const skip = (page - 1) * limit
+
+      const [reports, total] = await Promise.all([
+        db.errorReport.findMany({
+          skip,
+          take: limit,
+          orderBy: { date: 'desc' },
+          include: {
+            User: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        }),
+        db.errorReport.count(),
+      ])
+
+      return {
+        reports,
+        totalPages: Math.ceil(total / limit),
+        currentPage: page,
+      }
+    }),
 })

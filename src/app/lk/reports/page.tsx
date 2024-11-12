@@ -74,11 +74,11 @@ function LessonInfo({ lesson }: { lesson: Lesson | LessonParsed }) {
 
     return (
         <div className="space-y-1 text-sm">
-            <p className="font-bold">{isLessonParsed ? lesson.group : lesson.groupId}</p>
+            <p className="font-bold">{isLessonParsed ? lesson.group : lesson.Group?.title}</p>
             <p>{isLessonParsed ? lesson.teacher : lesson.Teacher?.name}</p>
             <p>{lesson.title}</p>
             <p>{formatDate(new Date(lesson.start))}</p>
-            <p>{isLessonParsed ? lesson.classroom : lesson.Classroom?.title}</p>
+            <p>Аудитория: {isLessonParsed ? lesson.classroom : lesson.Classroom?.name}</p>
             {!isLessonParsed && <p>ID: {lesson.id}</p>}
         </div>
     )
@@ -169,7 +169,7 @@ export default function ReportTable() {
     }
 
     return (
-        <div className="container mx-auto py-10">
+        <div className="">
             <h1 className="text-2xl font-bold mb-5">Отчеты</h1>
             <Table>
                 <TableHeader>
