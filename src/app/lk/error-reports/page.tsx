@@ -43,7 +43,7 @@ export default function ErrorReportTable() {
                     </DialogTrigger>
                     <DialogContent className="max-w-4xl max-h-full p-0 grid justify-center">
                       <img 
-                        src={`/api/files/${report.filePath.split('\\').pop()}`} 
+                        src={`/api/files/${report.filePath.split('/').pop()}`} 
                         alt="Screenshot" 
                         style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
                       />
