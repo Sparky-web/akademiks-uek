@@ -61,7 +61,7 @@ export default function DesktopSchedule(props: ScheduleProps) {
 
                                     const activeLessonId = useActiveLessonId(day?.lessons || [])
 
-                                    return <TableCell key={dayI} className="min-w-[250px] min-h-[150px] h-[150px] align-top p-3 border-x-gray-100 border">
+                                    return <TableCell key={dayI} className="min-w-[250px] min-h-[150px] h-[150px] align-top p-3 border-x-border border">
                                         <div className="grid content-between h-full items-between">
                                             <div className="flex gap-1">
                                                 {lessons.length === 1 ? <div className="flex-1 grid content-start items-start">

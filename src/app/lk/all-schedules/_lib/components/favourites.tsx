@@ -21,7 +21,7 @@ export default function Favourites() {
                 <P className="text-muted-foreground text-sm">
                     Добавляйте расписания своих друзей или преподавателей для быстрого доступа к ним.
                 </P>
-                <div className="rounded-lg bg-violet-50 dark:bg-violet-500/10 p-3 text-sm">
+                <div className="rounded-lg bg-violet-500/10 p-3 text-sm ">
                     Войдите в аккаунт для сохранения
                 </div>
                 <Link href="/auth/signin">
@@ -30,7 +30,7 @@ export default function Favourites() {
                     </Button>
                 </Link>
             </div>}
-            {user && <div className="grid gap-4">
+            {user && <div className="grid gap-4 ">
                 <div className="flex gap-3 items-center flex-wrap">
                     {!!user.Favourites?.length ?
                         user.Favourites.map((favourite, i) => <FavouriteButton favourite={favourite} key={i} />)
