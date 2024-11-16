@@ -1,29 +1,42 @@
-# Create T3 App
+# Академикс
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Академикс - платформа, с открытым исходным кодом для учебных заведений СПО, для управления и организации доступа к расписанию для студентов и преподавателей.
 
-## What's next? How do I make an app with this?
+Демо версия платформы доступна по ссылке - https://akademiks.studentto.ru/lk/all-schedules
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Цель проекта
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+> В первую очередь главную цель, которую я ставил себе - сделать
+> максимально эффективную, простую и понятную систему для размещения
+> расписания учебных заведений СПО, таким образом чтобы ее было легко
+> интегрировать в любое учебное заведение.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Для чего:
 
-## Learn More
+- Cделать расписание максимально доступным для студентов и преподавателей колледжа;
+- уменьшить нагрузку на учебную часть колледжа;
+- исключить использование сервиса Google Таблицы (который наиболее часто используют учебные заведения для размещения расписания) из учебного процесса, снизить риски в связи с использованием сервиса иностранной компании.
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Функционал:
+Веб-приложение включает функционал для четырех типов пользователей.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+⚠ - в разработке
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+**Для студентов и преподавателей:**
+- просмотр расписания всех групп и преподавателей;
+- сохранение своего расписания и доступ к нему с главного экрана, без необходимости повторного выбора;
+- сохранение расписания других групп (например своих друзей) или расписания преподавателей в "избранное", для более удобного доступа;
+- уведомления об изменениях в расписании ⚠.
 
-## How do I deploy this?
+**Для администрации:**
+- просмотр расписания всех групп и преподавателей;
+- загрузка расписание из таблицы с предопределенным шаблоном;
+	- отслеживание изменений при загрузке расписания;
+	- возможность уведомить студентов об изменениях  ⚠;
+- отслеживание списка пользователей;
+- отслеживание статистики.
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+**Для гостей:**
+- просмотр расписания всех групп и преподавателей;
+- регистрация или вход в систему.
+
