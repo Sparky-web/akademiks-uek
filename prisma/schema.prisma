@@ -155,6 +155,8 @@ model User {
   posts         Post[]
   role          Int       @default(1)
 
+  isNotificationsEnabled Boolean @default(false)
+
   Group   Group?  @relation(fields: [groupId], references: [id])
   groupId String?
 
