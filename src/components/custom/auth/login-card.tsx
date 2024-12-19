@@ -1,6 +1,6 @@
 'use client'
 
-import Card, { CardTitle } from "~/app/_lib/components/card"
+import Card, { CardTitle } from "~/components/custom/card"
 import { H1, H2, H3, P } from "~/components/ui/typography"
 import Logo from "~/app/_lib/images/urtk-logo.png"
 import Image from "next/image"
@@ -12,9 +12,9 @@ import { useState } from "react"
 import { getSession, signIn } from "next-auth/react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-import { useAppDispatch } from "../../client-store"
+import { useAppDispatch } from "../../../app/_lib/client-store"
 import { api } from "~/trpc/react"
-import { setUser } from "../../client-store/_lib/slices/user"
+import { setUser } from "../../../app/_lib/client-store/_lib/slices/user"
 
 export default function LoginCard() {
     const [email, setEmail] = useState('')
@@ -29,7 +29,6 @@ export default function LoginCard() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
-
             e.preventDefault()
             const res = await signIn('credentials', {
                 email: email,

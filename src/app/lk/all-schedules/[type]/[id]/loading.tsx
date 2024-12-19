@@ -1,4 +1,4 @@
-import LoaderFullscreen from "~/app/_lib/components/loader/fullscreen";
+import LoaderFullscreen from "~/components/custom/loader/fullscreen";
 
 export default function Loading() {
     return (

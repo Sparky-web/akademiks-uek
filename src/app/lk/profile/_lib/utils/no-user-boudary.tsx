@@ -1,7 +1,7 @@
 'use client'
 
 import { useAppSelector } from "~/app/_lib/client-store"
-import NoUserScreen, { NoUserScreenText, NoUserScreenTitle } from "~/app/_lib/components/no-user-screen"
+import NoUserScreen, { NoUserScreenText, NoUserScreenTitle } from "~/components/custom/no-user-screen"
 
 export default function NoUserBoundary({ children }: { children: React.ReactNode }) {
     const user = useAppSelector(e => e.user?.user)

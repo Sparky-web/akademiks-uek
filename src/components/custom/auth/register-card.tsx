@@ -1,6 +1,6 @@
 'use client'
 
-import Card, { CardTitle } from "~/app/_lib/components/card"
+import Card, { CardTitle } from "~/components/custom/card"
 import { H1, H2, H3, P } from "~/components/ui/typography"
 import Logo from "~/app/_lib/images/urtk-logo.png"
 import Image from "next/image"
@@ -12,7 +12,7 @@ import { useState } from "react"
 import { getSession, signIn } from "next-auth/react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-import { useAppDispatch, useAppSelector } from "../../client-store"
+import { useAppDispatch, useAppSelector } from "../../../app/_lib/client-store"
 import { useForm } from "@tanstack/react-form"
 import { zodValidator } from "@tanstack/zod-form-adapter"
 import TextFormField from "../text-form-field"
@@ -20,7 +20,8 @@ import { z } from "~/lib/utils/zod-russian"
 import { Combobox } from "../combobox"
 import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"
-import { setUser } from "../../client-store/_lib/slices/user"
+import { setUser } from "../../../app/_lib/client-store/_lib/slices/user"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
 
 export default function LoginCard() {
     const groups = useAppSelector(e => e.schedule.groups)
@@ -146,19 +147,30 @@ export default function LoginCard() {
                                     <form.Field name="role"
                                         validators={{
                                             onChange: z.number()
-                                        }}>
+                                        }}
+                                    >
                                         {(field) => (
                                             <div className="grid gap-1.5">
                                                 <Label>Роль</Label>
-                                                <Combobox
-                                                    data={[{ value: 1, label: 'Студент' }, { value: 2, label: 'Преподаватель' }]}
+                                                <Select
                                                     value={field.state.value}
-                                                    onChange={(e) => {
-                                                        field.handleChange(e)
+                                                    onValueChange={(e) => {
+                                                        field.handleChange(+e)
                                                         form.setFieldValue('groupId', null)
                                                         form.setFieldValue('teacherId', null)
                                                     }}
-                                                />
+                                                >
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Выберите роль" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        {[{ value: 1, label: 'Студент' }, { value: 2, label: 'Преподаватель' }].map(e => (
+                                                            <SelectItem key={e.value} value={e.value}>
+                                                                {e.label}
+                                                            </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
                                                 {!!field.state.meta.errors.length && <p className="text-red-500 text-xs font-medium">{field.state.meta.errors.join(', ')}</p>}
                                             </div>
                                         )}

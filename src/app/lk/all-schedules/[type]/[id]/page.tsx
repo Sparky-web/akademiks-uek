@@ -1,7 +1,7 @@
 import { ChevronLeft } from "lucide-react"
 import DateTime from "~/lib/utils/datetime"
 import Link from "next/link"
-import Schedule from "~/app/_lib/components/schedule"
+import Schedule from "~/components/custom/schedule"
 import { Button } from "~/components/ui/button"
 import { api } from "~/trpc/server"
 import AddToFavourite from "./_lib/componetns/add-to-favourite"

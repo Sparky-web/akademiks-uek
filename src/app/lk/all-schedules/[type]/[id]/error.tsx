@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect } from 'react';
-import InitializationErrorCard from '~/app/_lib/components/errors/initialization-error-card';
+import InitializationErrorCard from '~/components/custom/errors/initialization-error-card';
 import { Button } from '~/components/ui/button';
 // import ErrorBoundary from '~/app/_lib/utils/error-boundary';
 

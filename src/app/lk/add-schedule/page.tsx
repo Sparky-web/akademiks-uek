@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
-import Dropzone from "~/app/_lib/components/dropzone";
-import PageTitle from "~/app/_lib/components/page-title";
+import Dropzone from "~/components/custom/dropzone";
+import PageTitle from "~/components/custom/page-title";
 import { H2, H4, P } from "~/components/ui/typography";
 import parseSchedule from "./_lib/utils/parse-schedule";
 import Summary from "./_lib/componetns/summary";
@@ -11,7 +11,7 @@ import { api } from "~/trpc/react";
 import { Loader2 } from "lucide-react";
 import DifferenceView from "./_lib/componetns/difference-view";
 import { useAppSelector } from "~/app/_lib/client-store";
-import InitializationErrorCard from "~/app/_lib/components/errors/initialization-error-card";
+import InitializationErrorCard from "~/components/custom/errors/initialization-error-card";
 
 export default function Page() {
     const user = useAppSelector(e => e.user?.user)

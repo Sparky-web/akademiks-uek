@@ -62,7 +62,7 @@ export default async function RootLayout({
             {children}
           </ReduxProvider>
         </TRPCReactProvider>
-        <Toaster />
+        <Toaster position="top-right" />
 
         <script dangerouslySetInnerHTML={{
           __html: `if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {

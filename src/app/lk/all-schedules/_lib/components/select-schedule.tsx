@@ -2,22 +2,15 @@
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useAppSelector } from "~/app/_lib/client-store";
-import Card, { CardTitle } from "~/app/_lib/components/card";
-import { Combobox } from "~/app/_lib/components/combobox";
-import Schedule from "~/app/_lib/components/schedule";
+import Card, { CardTitle } from "~/components/custom/card";
+import { Combobox } from "~/components/custom/combobox";
 import { withErrorBoundary } from "~/app/_lib/utils/error-boundary";
 import { Button } from "~/components/ui/button";
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "~/components/ui/drawer";
 import { Label } from "~/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "~/components/ui/select";
 
 function SelectSchedule() {
     const { groups, teachers } = useAppSelector(state => state.schedule)
-
-    // const groups = [
-    //     {value: "1", label: "Ис-313"},
-    //     {value: "2", label: "Группа 2"},
-    //     {value: "3", label: "Группа 3"},
-    // ]
 
     if (!groups || !teachers) throw new Error('Не найдены группы и преподаватели')
 
@@ -40,15 +33,26 @@ function SelectSchedule() {
         <div className="grid gap-4">
             <div className="grid gap-1.5">
                 <Label>Тип расписания</Label>
-                <Combobox
-                    data={types}
-                    value={scheduleType}
-                    onChange={setScheduleType}
-                />
+                <Select
+                    value={scheduleType || undefined}
+                    onValueChange={setScheduleType}
+                >
+                    <SelectTrigger>
+                        <SelectValue placeholder="Выберите тип расписания" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {types.map(e => (
+                            <SelectItem key={e.value} value={e.value}>
+                                {e.label}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
             </div>
 
             {scheduleType === 'student' && <div className="grid gap-1.5">
                 <Label>Группа</Label>
+                
                 <Combobox
                     data={groups.map(group => ({ value: group.id, label: group.title }))}
                     value={groupId}

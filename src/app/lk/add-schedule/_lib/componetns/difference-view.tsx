@@ -2,7 +2,7 @@
 import { Users } from "lucide-react";
 import DateTime from "~/lib/utils/datetime"
 import React from "react";
-import Card, { CardTitle } from "~/app/_lib/components/card";
+import Card, { CardTitle } from "~/components/custom/card";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table";
 import { H4 } from "~/components/ui/typography";

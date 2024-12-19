@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from "react"
-import { useInstall } from "~/app/_lib/components/install-drawer"
+import { useInstall } from "~/components/custom/install-drawer"
 import { isMobile } from "react-device-detect";
 
 export default function InstallProvider({ children }: { children: React.ReactNode }) {

@@ -20,28 +20,6 @@ import {
 } from "~/components/ui/popover"
 import { useRef } from "react"
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-]
 
 interface ComboboxProps {
   data: {
@@ -64,7 +42,7 @@ export function Combobox({data, value, onChange}: ComboboxProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between text-base h-12"
+          className="w-full justify-between text-base h-12 font-normal px-3"
           ref={ref}
         >
           {value
@@ -74,11 +52,11 @@ export function Combobox({data, value, onChange}: ComboboxProps) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0" style={{
-        width: ref.current?.clientWidth
+        width: ref.current?.clientWidth,
       }}>
         <Command >
           <CommandInput placeholder="Поиск..." />
-          <CommandList>
+          <CommandList className="max-md:max-h-[200px]">
             <CommandEmpty>Ничего не найдено</CommandEmpty>
             <CommandGroup>
               {data.map((item) => (

@@ -6,7 +6,7 @@ import { FC, ReactElement, ReactNode } from "react";
 import { cn } from "~/lib/utils";
 import MobileMenu from "./mobile";
 import DesktopMenu from "./desktop";
-import { useAppSelector } from "../../client-store";
+import { useAppSelector } from "../../../app/_lib/client-store";
 
 
 const menu: MenuItem[] = [

@@ -1,8 +1,8 @@
 "use client"
 import { useAppSelector } from '~/app/_lib/client-store'
-import Schedule from '~/app/_lib/components/schedule'
+import Schedule from '~/components/custom/schedule'
 
-import NoUserScreen, { NoUserScreenText, NoUserScreenTitle } from "../../_lib/components/no-user-screen"
+import NoUserScreen, { NoUserScreenText, NoUserScreenTitle } from "../../../components/custom/no-user-screen"
 
 export default function ScheduleScreen() {
   const user = useAppSelector(e => e.user?.user)

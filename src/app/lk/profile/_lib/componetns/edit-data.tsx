@@ -6,15 +6,15 @@ import { api } from "~/trpc/react"
 import { Button } from "~/components/ui/button"
 import { cn } from "~/lib/utils"
 import { useAppDispatch, useAppSelector } from "~/app/_lib/client-store"
-import Card, { CardTitle } from "~/app/_lib/components/card"
+import Card, { CardTitle } from "~/components/custom/card"
 import { Label } from "~/components/ui/label"
 import { Input } from "~/components/ui/input"
-import { Combobox } from "~/app/_lib/components/combobox"
+import { Combobox } from "~/components/custom/combobox"
 import { z } from "~/lib/utils/zod-russian"
 import { zodValidator } from '@tanstack/zod-form-adapter'
 import { setUser } from "~/app/_lib/client-store/_lib/slices/user"
 import { toast } from "sonner"
-import TextFormField from "~/app/_lib/components/text-form-field"
+import TextFormField from "~/components/custom/text-form-field"
 
 
 

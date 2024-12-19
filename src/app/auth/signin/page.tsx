@@ -1,7 +1,7 @@
 "use client"
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
-import LoginCard from '~/app/_lib/components/auth/login-card'
+import LoginCard from '~/components/custom/auth/login-card'
 
 export default function AuthScreen({ onLogin }: { onLogin: (type: 'student' | 'teacher') => void }) {
 

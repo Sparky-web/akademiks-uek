@@ -11,6 +11,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
 model Post {
   id        Int      @id @default(autoincrement())
   name      String
@@ -120,8 +122,9 @@ model Teacher {
   name String
 
   Days   Day[]
-  User   User?    @relation
   Lesson Lesson[]
+
+  Users   User[]
 
   Favourite Favourite[]
 }
@@ -160,8 +163,8 @@ model User {
   Group   Group?  @relation(fields: [groupId], references: [id])
   groupId String?
 
-  teacherId String?  @unique
   Teacher   Teacher? @relation(fields: [teacherId], references: [id])
+  teacherId String? 
 
   Day         Day[]
   Favourites  Favourite[]

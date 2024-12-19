@@ -4,7 +4,7 @@ import { getServerAuthSession } from "~/server/auth"
 import SetUserProvider from "./_lib/providers/set-user"
 import { api } from "~/trpc/server"
 import DateTime from "~/lib/utils/datetime"
-import Menu from "../_lib/components/menu"
+import Menu from "../../components/custom/menu"
 import InstallProvider from "./_lib/providers/install"
 
 export default async function LkLayout({ children }: { children: React.ReactNode }) {

@@ -1,5 +1,5 @@
 
-import RegisterCard from "~/app/_lib/components/auth/register-card";
+import RegisterCard from "~/components/custom/auth/register-card";
 import SetSchedule from "~/app/lk/all-schedules/_lib/utils/set-schedule";
 import { api } from "~/trpc/server";
 

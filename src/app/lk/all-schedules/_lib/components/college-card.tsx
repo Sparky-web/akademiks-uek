@@ -1,5 +1,5 @@
 import { Landmark } from "lucide-react";
-import Card from "~/app/_lib/components/card";
+import Card from "~/components/custom/card";
 import { H3, H4 } from "~/components/ui/typography";
 
 export default function CollegeCard() {

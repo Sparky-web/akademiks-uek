@@ -1,6 +1,6 @@
 // "use client"
 
-import PageTitle from "~/app/_lib/components/page-title";
+import PageTitle from "~/components/custom/page-title";
 import { H1 } from "~/components/ui/typography";
 import Favourites from "./_lib/components/favourites";
 import SelectSchedule from "./_lib/components/select-schedule";

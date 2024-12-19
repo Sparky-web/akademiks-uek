@@ -1,5 +1,5 @@
-import Card, { CardTitle } from "~/app/_lib/components/card";
-import PageTitle from "~/app/_lib/components/page-title";
+import Card, { CardTitle } from "~/components/custom/card";
+import PageTitle from "~/components/custom/page-title";
 import { api } from "~/trpc/server";
 import SetSchedule from "../all-schedules/_lib/utils/set-schedule";
 import EditData from "./_lib/componetns/edit-data";

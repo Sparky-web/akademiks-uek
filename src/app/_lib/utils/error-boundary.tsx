@@ -1,6 +1,6 @@
 // ErrorBoundary.js
 import React, { FC, ReactElement } from 'react';
-import InitializationErrorCard from '../components/errors/initialization-error-card';
+import InitializationErrorCard from '../../../components/custom/errors/initialization-error-card';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {

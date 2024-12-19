@@ -1,7 +1,7 @@
 'use client'
 import { Plus, Stars, Users } from "lucide-react";
 import { useAppSelector } from "~/app/_lib/client-store";
-import Card, { CardTitle } from "~/app/_lib/components/card";
+import Card, { CardTitle } from "~/components/custom/card";
 import { Button } from "~/components/ui/button";
 import { P } from "~/components/ui/typography";
 import FavouriteButton from "./favourite-button";

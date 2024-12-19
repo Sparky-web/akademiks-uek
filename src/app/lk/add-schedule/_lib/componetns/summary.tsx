@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import Card, { CardTitle } from '~/app/_lib/components/card'
+import Card, { CardTitle } from '~/components/custom/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"

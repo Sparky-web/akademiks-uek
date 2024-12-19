@@ -3,7 +3,7 @@
 import { Star } from "lucide-react"
 import { useAppDispatch, useAppSelector } from "~/app/_lib/client-store"
 import { addFavourite , removeFavourite as removeFavouriteReducer } from "~/app/_lib/client-store/_lib/slices/user"
-import { ScheduleProps } from "~/app/_lib/components/schedule"
+import { ScheduleProps } from "~/components/custom/schedule"
 import { Button } from "~/components/ui/button"
 import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"

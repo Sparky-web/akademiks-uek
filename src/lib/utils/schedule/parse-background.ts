@@ -77,7 +77,7 @@ export default async function parseBackground() {
         }
     })
 
-    if (!config) return
+    if (!config) throw new Error('Запись конфигурации в БД не обнаружена')
 
     let links = await fetchPageLinks(config.parseSpreadsheetPageUrl);
 
