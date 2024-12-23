@@ -31,7 +31,9 @@ export default async function notify(teachers: string[], groups: string[]) {
             ]
         },
         include: {
-            PushSubscription: true 
+            PushSubscription: true,
+            Group: true,
+            Teacher: true
         }
     });
 
