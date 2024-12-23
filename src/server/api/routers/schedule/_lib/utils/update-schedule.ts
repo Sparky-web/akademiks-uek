@@ -461,7 +461,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
         teachersToNotify.add(report.inputItem?.Teacher?.name || report.inputItem?.teacher)
     }
 
-    notify(Array.from(teachersToNotify), Array.from(groupsToNotify))
+    await notify(Array.from(teachersToNotify), Array.from(groupsToNotify))
 
     return result
 }
