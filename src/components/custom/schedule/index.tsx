@@ -31,6 +31,8 @@ function Schedule(props: ScheduleProps) {
         groupId: props.type === 'student' ? props.groupId : undefined,
         teacherId: props.type === 'teacher' ? props.teacherId : undefined,
         weekStart
+    }, {
+        refetchInterval: 60000
     })
 
     useEffect(() => {
@@ -42,8 +44,6 @@ function Schedule(props: ScheduleProps) {
     }, [weekStart])
 
     if (!data) return 'Загрузка...'
-
-    console.log(data)
 
     const foundDay = data.data.find(day => day.start.toISOString() === selectedDayStart.toISOString())
 
