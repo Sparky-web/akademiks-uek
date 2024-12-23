@@ -44,7 +44,7 @@ export default function WeekSelector({ weekStart, onChange }: WeekSelectorProps)
           <ChevronLeft className="h-4 w-4" />
         </Button>
         <div className="text-center min-w-[200px]">
-          <p className="text-sm font-medium">{formattedWeek}</p>
+          <p className="text-sm font-medium whitespace-nowrap">{formattedWeek}</p>
         </div>
         <Button
           variant="ghost"

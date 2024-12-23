@@ -103,6 +103,7 @@ export default async function parseBackground() {
         console.log(`Обновлено расписание: ${sheetId}`)
     }
 
+
     await db.report.create({
         data: {
             startedAt: startedAt,

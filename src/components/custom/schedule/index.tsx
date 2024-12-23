@@ -20,6 +20,7 @@ export interface ScheduleProps {
     type: 'student' | 'teacher'
     groupId?: string,
     teacherId?: string
+    endTitleElement?: React.ReactNode
 }
 
 function Schedule(props: ScheduleProps) {
@@ -51,8 +52,9 @@ function Schedule(props: ScheduleProps) {
     return (
         <div className="grid gap-6 w-full overflow-hidden">
             <div className="flex gap-3 items-center content-center">
-                <PageTitle>
+                <PageTitle className="flex gap-4 items-center justify-between w-full">
                     Расписание: {data.type === 'student' ? data.group?.title : data.teacher?.name}
+                    {props.endTitleElement}
                 </PageTitle>
                 <div className="w-fit ml-auto max-lg:hidden">
                     <WeekSelector weekStart={weekStart} onChange={setWeekStart} />

@@ -3,14 +3,19 @@ import { useAppSelector } from '~/app/_lib/client-store'
 import Schedule from '~/components/custom/schedule'
 
 import NoUserScreen, { NoUserScreenText, NoUserScreenTitle } from "../../../components/custom/no-user-screen"
+import NotificationButton from '~/components/custom/push/notification-button'
 
 export default function ScheduleScreen() {
   const user = useAppSelector(e => e.user?.user)
 
   return (
-    <div className="grid  ">
+    <div className="grid ">
       {user &&
-        <Schedule groupId={user.groupId} type={user.role === 1 ? 'student' : 'teacher'} teacherId={user.teacherId} />
+        <Schedule groupId={user.groupId} type={user.role === 1 ? 'student' : 'teacher'} teacherId={user.teacherId} 
+          endTitleElement={
+            <NotificationButton />
+          }
+        />
       }
 
       {!user &&

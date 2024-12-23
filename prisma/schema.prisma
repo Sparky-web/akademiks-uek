@@ -11,8 +11,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
 model Post {
   id        Int      @id @default(autoincrement())
   name      String
@@ -124,7 +122,7 @@ model Teacher {
   Days   Day[]
   Lesson Lesson[]
 
-  Users   User[]
+  Users User[]
 
   Favourite Favourite[]
 }
@@ -164,11 +162,12 @@ model User {
   groupId String?
 
   Teacher   Teacher? @relation(fields: [teacherId], references: [id])
-  teacherId String? 
+  teacherId String?
 
-  Day         Day[]
-  Favourites  Favourite[]
-  ErrorReport ErrorReport[]
+  Day              Day[]
+  Favourites       Favourite[]
+  ErrorReport      ErrorReport[]
+  PushSubscription PushSubscription[]
 }
 
 model Report {
@@ -212,3 +211,11 @@ model ErrorReport {
   userId   String?
   User     User?    @relation(fields: [userId], references: [id])
 }
+
+model PushSubscription {
+  id       String @id @default(cuid())
+  endpoint String
+  keys     String
+  userId   String
+  User     User   @relation(fields: [userId], references: [id])
+} 

@@ -7,6 +7,7 @@ import { db } from "~/server/db";
 import pMap from 'p-map';
 import getScheduleDifference from "./get-schedule-difference";
 import { Lesson } from "~/types/schedule";
+import notify from "./notify";
 
 export interface ResultItem {
     type: "add" | "update" | "delete",
@@ -451,6 +452,16 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
     }
 
 
+    const groupsToNotify = new Set<string>()
+    const teachersToNotify = new Set<string>()
+    for (let report of result) {
+        groupsToNotify.add(report.item.Group?.title || report.item.group)
+        groupsToNotify.add(report.inputItem?.Group?.title || report.inputItem?.group)
+        teachersToNotify.add(report.item.Teacher?.name || report.item.teacher)
+        teachersToNotify.add(report.inputItem?.Teacher?.name || report.inputItem?.teacher)
+    }
+
+    notify(Array.from(teachersToNotify), Array.from(groupsToNotify))
 
     return result
 }
