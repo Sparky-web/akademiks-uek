@@ -27,7 +27,7 @@ export default function NotificationButton() {
     const { mutateAsync: subscribe } = api.push.subscribe.useMutation()
     const { mutateAsync: unsubscribe } = api.push.unsubscribe.useMutation()
 
-    const { mutateAsync: test } = api.push.test.useMutation()
+    const { mutateAsync: test, isPending } = api.push.test.useMutation()
 
     const [isSupported, setIsSupported] = useState(false)
     const [subscription, setSubscription] = useState<PushSubscription | null>(
@@ -107,14 +107,11 @@ export default function NotificationButton() {
                     variant="outline"
                     size="icon"
                     className={cn(`w-10 h-10 rounded-lg transition-all duration-300 ease-in-out`,
-                        subscription
-                            ? "bg-gradient-to-br from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl hover:text-white"
-                            : ""
+                        "bg-gradient-to-br from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl hover:text-white"
                     )}
                 >
                     <Bell
-                        className={`w-5 h-5 ${subscription ? "" : ""
-                            }`}
+                        className={`w-5 h-5 ${subscription ? "" : ""}`}
                     />
                     <span className="sr-only">
                         {subscription ? "Disable notifications" : "Enable notifications"}
@@ -158,13 +155,22 @@ export default function NotificationButton() {
                         }
                         {!isLoading && !subscription && "Включить уведомления"}
                     </div>
-                    <Button
-                        variant="outline"
-                        onClick={() => test()}
-                    >
-                        Проверить уведомления
-                    </Button>
                 </div>
+
+                {subscription && <Button
+                    variant="outline"
+                    onClick={async () => {
+                        try {
+                            await test()
+                        } catch (e) {
+                            toast.error('Ошибка проверки уведомлений: ' + e.message)
+                        }
+                    }}
+                    disabled={isPending}
+                >
+                    {isPending && <Loader2 className="animate-spin w-5 h-5" />}
+                    Проверить уведомления
+                </Button>}
             </DialogContent>
         </Dialog>
     )
