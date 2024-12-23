@@ -13,13 +13,13 @@ export default async function sendNotification(
     title: string,
     body: string
 ) {
-    const subscription = await db.pushSubscription.findFirst({
+    const subscriptions = await db.pushSubscription.findMany({
         where: {
             userId: userId
         }
     })
 
-    if (!subscription) throw new Error('Не найдена подписка на push')
+    if (!subscriptions.length) throw new Error('Не найдена подписка на push')
 
     const payload = JSON.stringify({
         title: title,
@@ -27,10 +27,12 @@ export default async function sendNotification(
         icon: '/ios/64.png'
     })
 
-    await webPush.sendNotification({
-        endpoint: subscription.endpoint,
-        keys: JSON.parse(subscription.keys),
-    }, payload);
+    for (let subscription of subscriptions) {
+        await webPush.sendNotification({
+            endpoint: subscription.endpoint,
+            keys: JSON.parse(subscription.keys),
+        }, payload);
+    }
 
     return 'ok'
 }
