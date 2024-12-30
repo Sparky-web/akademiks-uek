@@ -9,7 +9,7 @@ export default function CollegeCard() {
 
             <div className="flex gap-2 content-center">
                 <Landmark className="min-h-5 min-w-5" />
-                <H3>Уральский радиотехнический колледж им. А.С. Попова</H3>
+                <H3>Уральский экономический колледж</H3>
             </div>
             <div className="text-muted-foreground">
                 Все расписания

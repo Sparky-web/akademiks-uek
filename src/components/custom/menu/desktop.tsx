@@ -19,7 +19,7 @@ export default function DesktopMenu({ data }: MenuProps) {
                 <Image src={Logo} alt="Академикс" width={24} height={24} style={{
                     transform: "translateY(8px)"
                 }} /> 
-                Академикс x УРТК
+                Академикс x УЭК
             </H2>
             <div className="grid gap-2">
                 {data.map(item => {

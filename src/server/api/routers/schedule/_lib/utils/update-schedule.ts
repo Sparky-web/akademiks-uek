@@ -41,7 +41,6 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
 
     const difference = await getScheduleDifference(schedule)
 
-
     const result: ResultItem[] = []
 
     for (let lesson of difference) {
@@ -451,7 +450,6 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
         // await pMap(schedule, _updateSchedule, { concurrency: 1 })
     }
 
-
     const groupsToNotify = new Set<string>()
     const teachersToNotify = new Set<string>()
     for (let report of result) {
@@ -460,8 +458,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
         teachersToNotify.add(report.item.Teacher?.name || report.item.teacher)
         teachersToNotify.add(report.inputItem?.Teacher?.name || report.inputItem?.teacher)
     }
-
-    await notify(Array.from(teachersToNotify), Array.from(groupsToNotify))
+    await notify(Array.from(teachersToNotify).filter(e => e), Array.from(groupsToNotify).filter(e => e))
 
     return result
 }
