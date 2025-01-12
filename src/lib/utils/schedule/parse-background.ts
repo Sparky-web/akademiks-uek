@@ -97,8 +97,8 @@ export default async function parseBackground() {
             const lessonParsed: LessonParsed[] = data.data.rasp.map((lesson: any) => ({
                 title: lesson['дисциплина'],
                 index: lesson['номерЗанятия'],
-                start: new Date(lesson['датаНачала']),
-                end: new Date(lesson['датаОкончания']),
+                start: DateTime.fromISO(lesson['датаНачала']).toJSDate(),
+                end: DateTime.fromISO(lesson['датаОкончания']).toJSDate(),
                 group: link.title,
                 subgroup: null,
                 classroom: lesson['аудитория'] || 'Не указана',
