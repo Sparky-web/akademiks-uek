@@ -81,7 +81,7 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
                         Classroom: {
                             connectOrCreate: {
                                 where: {
-                                    name: lesson.to.classroom 
+                                    name: lesson.to.classroom
                                 },
                                 create: {
                                     name: lesson.to.classroom
@@ -458,7 +458,11 @@ export default async function updateSchedule(schedule: LessonParsed[]) {
         teachersToNotify.add(report.item.Teacher?.name || report.item.teacher)
         teachersToNotify.add(report.inputItem?.Teacher?.name || report.inputItem?.teacher)
     }
-    await notify(Array.from(teachersToNotify).filter(e => e), Array.from(groupsToNotify).filter(e => e))
+    try {
+        await notify(Array.from(teachersToNotify).filter(e => e), Array.from(groupsToNotify).filter(e => e))
+    } catch (e) {
+        console.error('Ошибка отправки уведомлений: ' + e.message)
+    }
 
     return result
 }

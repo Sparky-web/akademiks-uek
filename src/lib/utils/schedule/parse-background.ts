@@ -33,7 +33,9 @@ async function fetchPageLinks(url: string) {
     const g = groups.map((group: any) => ({
         title: group.name,
         id: group.id,
-        url: 'https://xn--j1ab.xn----7sbndgvfca2ar9a.xn--p1ai/api/Rasp?idGroup=' + group.id + '&sdate=' + startDate
+        url: 'https://xn--j1ab.xn----7sbndgvfca2ar9a.xn--p1ai/api/Rasp?idGroup=' + group.id 
+        
+        // + '&sdate=' + startDate
     }))
 
     console.log(g)
@@ -102,6 +104,8 @@ export default async function parseBackground() {
                 classroom: lesson['аудитория'] || 'Не указана',
                 teacher: lesson['преподаватель'] || 'Не указан',
             }))
+
+            console.log(`Найдено пар: ${lessonParsed.length}`)
 
             if (lessonParsed.length) {
                 const report = await updateSchedule(lessonParsed)
